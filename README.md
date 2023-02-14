@@ -16,3 +16,4 @@
 - https://github.com/MariyaDokukina (Мария Докукина)
 - https://github.com/Zhenka133 (Евгения Митрофанова)
 - https://github.com/hubnig (Даниил Чернецов)
+- https://github.com/Povalikhina (Наталья Повалихина)
