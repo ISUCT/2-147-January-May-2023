@@ -1,5 +1,9 @@
 # 2-147-January-May-2023
 
+## Design
+
+[Figma: Landing](https://www.figma.com/proto/nEZC73T0FjMnaFkC0gEBvv/Untitled?node-id=6%3A16&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=6%3A16)
+
 ## Collaborators
 
 - https://github.com/fixat0r (Никита Виноградов)
