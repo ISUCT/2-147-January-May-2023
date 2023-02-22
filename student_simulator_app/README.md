@@ -14,7 +14,10 @@ Student Simulator, 2D, mobile app
 - Форумы/чаты
   - Направленность, например, по кланам
 
-Скрины приложения
+### Схема
+![arch_app](https://user-images.githubusercontent.com/56484404/220780664-e614a975-c781-47e4-964b-49b768447bee.png)
+
+### Скрины приложения
 <p float="left">
 <img src="https://github.com/HubOl01/2-147-January-May-2023/blob/master/student_simulator_app/flutter_02.png" alt="Главная" width="300"/>
 <img src="https://github.com/HubOl01/2-147-January-May-2023/blob/master/student_simulator_app/flutter_01.png" alt="Гайды" width="300"/>
