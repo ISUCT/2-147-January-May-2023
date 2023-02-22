@@ -23,9 +23,13 @@ class _GuidePageState extends State<GuidePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: RefreshIndicator(
+      color: Colors.blue,
       onRefresh: (() async {
-        // getGuide();
-        return Future<void>.delayed(const Duration(seconds: 3));
+        return Future<void>.delayed(const Duration(seconds: 3), () {
+          setState(() {
+            getGuide();
+          });
+        });
       }),
       child: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
         SliverAppBar(
@@ -60,17 +64,15 @@ class _GuidePageState extends State<GuidePage> {
                           elevation: 5,
                           child: InkWell(
                             onTap: () {
-                              // Navigator.of(context).push(
-                              // MaterialPageRoute(
-                              // builder: (context) =>
-                              // detalGuidePage(
-                              //     name: getResGuide[index].nameG,
-                              //     description:
-                              //         getResGuide[index].descriptionG,
-                              //     datetime: getResGuide[index].timestampG,
-                              //     user: users[0].username)
-                              // ),
-                              // );
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => detalGuidePage(
+                                        name: guides[index].name_g,
+                                        description:
+                                            guides[index].description_g,
+                                        datetime: guides[index].timestamp_g,
+                                        user: users[0].username)),
+                              );
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -122,16 +124,15 @@ class _GuidePageState extends State<GuidePage> {
                                         guides[index].url_f[0] == null
                                             ? ''
                                             : guides[index].url_f[0]!)
-                                :
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Text(
-                                    // '',
-                                    guides[index].description_g,
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ),
+                                    : Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Text(
+                                          // '',
+                                          guides[index].description_g,
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                      ),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
@@ -182,11 +183,35 @@ class _GuidePageState extends State<GuidePage> {
                 );
               } else {
                 return SliverFillRemaining(
-                  child: Center(child: CircularProgressIndicator()),
-                );
+                    child: Center(child: CircularProgressIndicator()));
+                // Future.delayed(Duration(seconds: 15), () {
+                //   );
+                // });
+                // return SliverFillRemaining(
+                //     child: Center(
+                //   child: Text(
+                //     "Произошла ошибка(\nВернитесь позже",
+                //     style: TextStyle(
+                //       fontSize: 20,
+                //     ),
+                //     textAlign: TextAlign.center,
+                //   ),
+                // ));
                 //  Center(child: CircularProgressIndicator());
+                // }
               }
             })
+        // : SliverFillRemaining(
+        //     child: Center(
+        //       child: Text(
+        //         "Произошла ошибка(\nВернитесь позже",
+        //         style: TextStyle(
+        //           fontSize: 20,
+        //         ),
+        //         textAlign: TextAlign.center,
+        //       ),
+        //     ),
+        //   )
         // }),
       ]),
     ));

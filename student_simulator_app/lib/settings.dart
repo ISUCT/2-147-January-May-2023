@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:student_simulator/main.dart';
 
@@ -26,12 +27,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   scrollDirection: Axis.vertical,
                   slivers: [
                     SliverAppBar(
-                      backgroundColor: Colors.grey[500],
+                      backgroundColor: Colors.blue,
                       floating: false,
                       pinned: true,
-                      // centerTitle: true,
-
-                      // title: const Text('Главная'),
                       expandedHeight: 200,
                       flexibleSpace: FlexibleSpaceBar(
                           titlePadding: const EdgeInsets.only(top: 20),
@@ -75,8 +73,23 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             ListTile(
                               onTap: () {},
+                              leading: Icon(Icons.settings_applications),
+                              title: Text('Настройки пользователя'),
+                            ),
+                            ListTile(
+                              onTap: () {},
+                              leading: Icon(BoxIcons.bx_support),
+                              title: Text('Обратиться в техподдержку'),
+                            ),
+                            ListTile(
+                              onTap: () {},
                               leading: Icon(Icons.info),
-                              title: Text('Информация об игре'),
+                              title: Text('Информация о приложении'),
+                            ),
+                            ListTile(
+                              onTap: () {},
+                              leading: Icon(Icons.help),
+                              title: Text('Помощь'),
                             ),
                             ListTile(
                               onTap: () {},

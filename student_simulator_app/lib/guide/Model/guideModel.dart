@@ -1,60 +1,10 @@
-// To parse this JSON data, do
 
-//     final guideModel = guideModelFromJson(jsonString);
-
-// import 'package:meta/meta.dart';
-// import 'dart:convert';
-
-// List<GuideModel> guideModelFromJson(String str) => List<GuideModel>.from(json.decode(str).map((x) => GuideModel.fromJson(x)));
-
-// String guideModelToJson(List<GuideModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
-// class GuideModel {
-//     GuideModel({
-//         required this.id,
-//         required this.nameG,
-//         required this.descriptionG,
-//         required this.likeG,
-//         required this.timestampG,
-//         required this.urlF,
-//         required this.type,
-//     });
-
-//     int? id;
-//     String? nameG;
-//     String? descriptionG;
-//     int? likeG;
-//     DateTime? timestampG;
-//     List<String>? urlF;
-//     List<String>? type;
-
-//     factory GuideModel.fromJson(Map<String, dynamic> json) => GuideModel(
-//         id: json["id"],
-//         nameG: json["name_g"],
-//         descriptionG: json["description_g"],
-//         likeG: json["like_g"],
-//         timestampG: DateTime.parse(json["timestamp_g"]),
-//         urlF: List<String>.from(json["url_f"].map((x) => x)),
-//         type: List<String>.from(json["type"].map((x) => x)),
-//     );
-
-//     Map<String, dynamic> toJson() => {
-//         "id": id,
-//         "name_g": nameG,
-//         "description_g": descriptionG,
-//         "like_g": likeG,
-//         "timestamp_g": timestampG!.toIso8601String(),
-//         "url_f": List<dynamic>.from(urlF!.map((x) => x)),
-//         "type": List<dynamic>.from(type!.map((x) => x)),
-//     };
-// }
-// To parse this JSON data, do
-//
-//     final guideModel = guideModelFromJson(jsonString);
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<GuideModel> guides = [];
+import 'package:student_simulator/api/apiGuide.dart';
+
+List<GuideModel> guides = [GuideModel(id: 0, name_g: '0', description_g: '0', like_g: 0, timestamp_g: '0', url_f: [], type: [])];
 Map<String, GuideModel> guideModelFromJson(String str) =>
     Map.from(json.decode(str))
         .map((k, v) => MapEntry<String, GuideModel>(k, GuideModel.fromJson(v)));

@@ -13,23 +13,23 @@
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->/home/foward01/StudioProjects/student_simulator/android/app/src/debug/AndroidManifest.xml:7:5-66
-15-->/home/foward01/StudioProjects/student_simulator/android/app/src/debug/AndroidManifest.xml:7:22-64
+15-->/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/android/app/src/debug/AndroidManifest.xml:7:5-66
+15-->/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/android/app/src/debug/AndroidManifest.xml:7:22-64
 16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-16-->[:file_picker] /home/foward01/StudioProjects/student_simulator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-80
-16-->[:file_picker] /home/foward01/StudioProjects/student_simulator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-77
+16-->[:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-80
+16-->[:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-77
 17
 18    <queries>
-18-->[:file_picker] /home/foward01/StudioProjects/student_simulator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-17:15
+18-->[:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-17:15
 19        <intent>
-19-->[:file_picker] /home/foward01/StudioProjects/student_simulator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-16:18
+19-->[:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-16:18
 20            <action android:name="android.intent.action.GET_CONTENT" />
-20-->[:file_picker] /home/foward01/StudioProjects/student_simulator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-72
-20-->[:file_picker] /home/foward01/StudioProjects/student_simulator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:13:21-69
+20-->[:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-72
+20-->[:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:13:21-69
 21
 22            <data android:mimeType="*/*" />
-22-->[:file_picker] /home/foward01/StudioProjects/student_simulator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-44
-22-->[:file_picker] /home/foward01/StudioProjects/student_simulator/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:15:19-41
+22-->[:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-44
+22-->[:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:15:19-41
 23        </intent>
 24    </queries> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
 25    <!-- <uses-sdk android:minSdkVersion="14"/> -->
@@ -78,25 +78,25 @@
 65            android:value="2" />
 66
 67        <service
-67-->[:firebase_storage] /home/foward01/StudioProjects/student_simulator/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
+67-->[:firebase_storage] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:19
 68            android:name="com.google.firebase.components.ComponentDiscoveryService"
-68-->[:firebase_storage] /home/foward01/StudioProjects/student_simulator/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
+68-->[:firebase_storage] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:10:18-89
 69            android:directBootAware="true"
 69-->[com.google.firebase:firebase-common:20.3.0] /home/foward01/.gradle/caches/transforms-3/17f61bb9398e1f5c13b56fc5aeeddc14/transformed/jetified-firebase-common-20.3.0/AndroidManifest.xml:34:13-43
 70            android:exported="false" >
 70-->[com.google.firebase:firebase-storage:20.1.0] /home/foward01/.gradle/caches/transforms-3/82b3d7a5d1802e9fa70b6c75bdf3591c/transformed/jetified-firebase-storage-20.1.0/AndroidManifest.xml:31:13-37
 71            <meta-data
-71-->[:firebase_storage] /home/foward01/StudioProjects/student_simulator/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+71-->[:firebase_storage] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
 72                android:name="com.google.firebase.components:io.flutter.plugins.firebase.storage.FlutterFirebaseAppRegistrar"
-72-->[:firebase_storage] /home/foward01/StudioProjects/student_simulator/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-126
+72-->[:firebase_storage] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-126
 73                android:value="com.google.firebase.components.ComponentRegistrar" />
-73-->[:firebase_storage] /home/foward01/StudioProjects/student_simulator/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+73-->[:firebase_storage] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
 74            <meta-data
-74-->[:firebase_core] /home/foward01/StudioProjects/student_simulator/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
+74-->[:firebase_core] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-13:85
 75                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
-75-->[:firebase_core] /home/foward01/StudioProjects/student_simulator/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
+75-->[:firebase_core] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:12:17-124
 76                android:value="com.google.firebase.components.ComponentRegistrar" />
-76-->[:firebase_core] /home/foward01/StudioProjects/student_simulator/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
+76-->[:firebase_core] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:13:17-82
 77            <meta-data
 77-->[com.google.firebase:firebase-storage:20.1.0] /home/foward01/.gradle/caches/transforms-3/82b3d7a5d1802e9fa70b6c75bdf3591c/transformed/jetified-firebase-storage-20.1.0/AndroidManifest.xml:32:13-34:85
 78                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
@@ -106,21 +106,21 @@
 80        </service>
 81
 82        <provider
-82-->[:image_picker_android] /home/foward01/StudioProjects/student_simulator/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-18:20
+82-->[:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-18:20
 83            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-83-->[:image_picker_android] /home/foward01/StudioProjects/student_simulator/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-82
+83-->[:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-82
 84            android:authorities="com.ISUCT_group.student_simulator.flutter.image_provider"
-84-->[:image_picker_android] /home/foward01/StudioProjects/student_simulator/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-74
+84-->[:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-74
 85            android:exported="false"
-85-->[:image_picker_android] /home/foward01/StudioProjects/student_simulator/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-37
+85-->[:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-37
 86            android:grantUriPermissions="true" >
-86-->[:image_picker_android] /home/foward01/StudioProjects/student_simulator/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-47
+86-->[:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-47
 87            <meta-data
-87-->[:image_picker_android] /home/foward01/StudioProjects/student_simulator/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-17:75
+87-->[:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-17:75
 88                android:name="android.support.FILE_PROVIDER_PATHS"
-88-->[:image_picker_android] /home/foward01/StudioProjects/student_simulator/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:16:17-67
+88-->[:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:16:17-67
 89                android:resource="@xml/flutter_image_picker_file_paths" />
-89-->[:image_picker_android] /home/foward01/StudioProjects/student_simulator/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:17:17-72
+89-->[:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:17:17-72
 90        </provider>
 91
 92        <uses-library

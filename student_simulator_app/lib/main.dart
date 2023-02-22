@@ -43,7 +43,7 @@ List _pages = [
   AnalysisPage(),
   SettingsPage(),
 ];
-int _currentIndex = 1;
+int _currentIndex = 4;
 
 class ButtomBar extends StatefulWidget {
   const ButtomBar({super.key});

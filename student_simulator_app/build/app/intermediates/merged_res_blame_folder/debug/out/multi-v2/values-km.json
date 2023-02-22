@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/foward01/StudioProjects/student_simulator/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-km/values-km.xml",
+            "outputFile": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-km/values-km.xml",
             "map": [
                 {
                     "source": "/home/foward01/.gradle/caches/transforms-3/27ed75583d8888cfd149af38bb71ea35/transformed/jetified-play-services-base-18.0.1/res/values-km/values.xml",
