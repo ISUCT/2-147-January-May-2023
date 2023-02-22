@@ -19,11 +19,7 @@ Student Simulator, 2D, mobile app
 
 ### Скрины приложения
 <p float="left">
-<img src="https://github.com/HubOl01/2-147-January-May-2023/blob/master/student_simulator_app/flutter_02.png" alt="Главная" width="300"/>
-<img src="https://github.com/HubOl01/2-147-January-May-2023/blob/master/student_simulator_app/flutter_01.png" alt="Гайды" width="300"/>
-<img src="https://github.com/HubOl01/2-147-January-May-2023/blob/master/student_simulator_app/flutter_03.png" alt="Настройки" width="300"/>
+<img src="flutter_02.png" alt="Главная" width="300"/>
+<img src="flutter_01.png" alt="Гайды" width="300"/>
+<img src="flutter_03.png" alt="Настройки" width="300"/>
 </p>
-
-<!---| Главная  | Гайды  | Настройки  |
-:---:|:---:|:---:
-|![](https://github.com/HubOl01/2-147-January-May-2023/blob/master/student_simulator_app/flutter_02.png)|![](https://github.com/HubOl01/2-147-January-May-2023/blob/master/student_simulator_app/flutter_01.png)|![](https://github.com/HubOl01/2-147-January-May-2023/blob/master/student_simulator_app/flutter_03.png)| --->
