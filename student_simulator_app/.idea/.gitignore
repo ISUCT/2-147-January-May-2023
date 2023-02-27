@@ -1,9 +1,9 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-/.dart_tool
-/android/
-/ios/
-.flutter-plugins
-.flutter-plugins-dependencies
-.metadata
+/student_simulator_app/.dart_tool/
+/student_simulator_app/android/
+/student_simulator_app/ios/
+/student_simulator_app/.flutter-plugins
+/student_simulator_app/.flutter-plugins-dependencies
+/student_simulator_app/.metadata
