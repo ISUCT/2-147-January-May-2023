@@ -37,11 +37,13 @@ INJECTED from /home/foward01/StudioProjects/2-147-January-May-2023/student_simul
 INJECTED from /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/android/app/src/main/AndroidManifest.xml:1:1-34:12
 INJECTED from /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/android/app/src/main/AndroidManifest.xml:1:1-34:12
 MERGED from /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/android/app/src/main/AndroidManifest.xml:1:1-34:12
+MERGED from [:shared_preferences_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:firebase_storage] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-17:12
 MERGED from [:firebase_core] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-17:12
 MERGED from [:file_picker] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-19:12
 MERGED from [:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-21:12
 MERGED from [:flutter_plugin_android_lifecycle] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:package_info_plus] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] /home/foward01/.gradle/caches/transforms-3/c640cbfc810dab2cae3c3f076d329b8c/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] /home/foward01/.gradle/caches/transforms-3/36a45b2abb854eca36c578fbec6ed4df/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:17:1-33:12
 MERGED from [com.google.firebase:firebase-storage:20.1.0] /home/foward01/.gradle/caches/transforms-3/82b3d7a5d1802e9fa70b6c75bdf3591c/transformed/jetified-firebase-storage-20.1.0/AndroidManifest.xml:15:1-38:12
@@ -89,6 +91,8 @@ uses-sdk
 INJECTED from /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/android/app/src/main/AndroidManifest.xml
 INJECTED from /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/android/app/src/main/AndroidManifest.xml
+MERGED from [:shared_preferences_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:shared_preferences_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/shared_preferences_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_storage] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_storage] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:firebase_core] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
@@ -99,6 +103,8 @@ MERGED from [:image_picker_android] /home/foward01/StudioProjects/2-147-January-
 MERGED from [:image_picker_android] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:flutter_plugin_android_lifecycle] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:package_info_plus] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:package_info_plus] /home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/package_info_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] /home/foward01/.gradle/caches/transforms-3/c640cbfc810dab2cae3c3f076d329b8c/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] /home/foward01/.gradle/caches/transforms-3/c640cbfc810dab2cae3c3f076d329b8c/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] /home/foward01/.gradle/caches/transforms-3/36a45b2abb854eca36c578fbec6ed4df/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41

@@ -10,7 +10,6 @@ import 'guide/guidePage.dart';
 import 'main/mainPage.dart';
 
 Future main() async{
-  // operation();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -30,20 +29,20 @@ class MyApp extends StatelessWidget {
               darkTheme: Themes.dark,
         debugShowCheckedModeBanner: false,
         title: 'Student Sumilator',
-        home: ButtomBar(),
+        home: const ButtomBar(),
       ),
     );
   }
 }
 
 List _pages = [
-  MainPage(),
-  GuidePage(),
-  ForumsPage(),
-  AnalysisPage(),
-  SettingsPage(),
+  const MainPage(),
+  const GuidePage(),
+  const ForumsPage(),
+  const AnalysisPage(),
+  const SettingsPage(),
 ];
-int _currentIndex = 4;
+int _currentIndex = 0;
 
 class ButtomBar extends StatefulWidget {
   const ButtomBar({super.key});
@@ -62,19 +61,19 @@ class _ButtomBarState extends State<ButtomBar> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-              activeIcon: Icon(Icons.home),
+              activeIcon: const Icon(Icons.home),
               icon:
                   Icon(Icons.home, color: Theme.of(context).iconTheme.color),
               label: "Главная"),
           BottomNavigationBarItem(
-              activeIcon: Icon(Icons.quiz),
+              activeIcon: const Icon(Icons.quiz),
               icon: Icon(
                 Icons.quiz,
                 color: Theme.of(context).iconTheme.color,
               ),
               label: "Гайды"),
           BottomNavigationBarItem(
-              activeIcon: Icon(Icons.message),
+              activeIcon: const Icon(Icons.message),
               icon: Icon(Icons.message,
                   color: Theme.of(context).iconTheme.color),
               label: "Форумы"),
@@ -84,7 +83,7 @@ class _ButtomBarState extends State<ButtomBar> {
                   Icon(Icons.analytics, color: Theme.of(context).iconTheme.color),
               label: "Статистика"),
           BottomNavigationBarItem(
-              activeIcon: Icon(Icons.settings),
+              activeIcon: const Icon(Icons.settings),
               icon: Icon(Icons.settings,
                   color: Theme.of(context).iconTheme.color),
               label: "Настройки"),

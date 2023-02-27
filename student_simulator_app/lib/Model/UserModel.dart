@@ -2,6 +2,7 @@ class UserModel {
   String username;
   String pass;
   String avatar_url;
+  String? description;
   bool verifed;
   String status;
   String? role_user;
@@ -13,6 +14,7 @@ class UserModel {
     required this.avatar_url,
     required this.verifed,
     required this.status,
+    this.description,
     this.role_user,
     this.score,
   });

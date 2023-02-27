@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_res/profile/layout/custom_dialog.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_res/profile/layout/notification_template_part_chronometer.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_res/profile/layout/notification_template_part_time.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_res/profile/layout/notification_action_tombstone.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_res/profile/layout/notification_action.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/layout/notification_action.xml"
+    },
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_core/intermediates/merged_res/profile/layout/notification_template_icon_group.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/dabcda68851483edc65f4d3af38ff3f1/transformed/core-1.6.0/res/layout/notification_template_icon_group.xml"
+    }
+]

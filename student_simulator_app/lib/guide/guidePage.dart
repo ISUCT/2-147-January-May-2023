@@ -21,6 +21,7 @@ class GuidePage extends StatefulWidget {
 class _GuidePageState extends State<GuidePage> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: RefreshIndicator(
       color: Colors.blue,
@@ -84,21 +85,28 @@ class _GuidePageState extends State<GuidePage> {
                                       CircleAvatar(
                                         radius: 15,
                                         backgroundColor: Colors.blue,
+                                        backgroundImage: NetworkImage(users[index_user].avatar_url),
+                                        foregroundImage: NetworkImage(users[index_user].avatar_url),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 5,
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                            // '',
-                                            users[index_user].username,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                          SizedBox(
+                                            // width: ,
+                                            child: Text(
+                                              users[index_user].username,
+                                              maxLines: 1,
+                                              softWrap: false,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                           if (users[index_user].verifed)
-                                            Icon(
+                                            const Icon(
                                               BoxIcons.bxs_badge_check,
                                               color: Colors.blue,
                                               size: 19,
