@@ -1,4 +1,3 @@
-# Default ignored files
 /shelf/
 /workspace.xml
 /student_simulator_app/.dart_tool/
@@ -7,3 +6,21 @@
 /student_simulator_app/.flutter-plugins
 /student_simulator_app/.flutter-plugins-dependencies
 /student_simulator_app/.metadata
+.DS_Store
+.dart_tool/
+.packages
+.pub/
+.idea
+build/
+pubspec.lock
+.flutter-plugins
+flutter
+IDEWorkspaceChecks.plist
+org.eclipse.buildship.core.prefs
+Breakpoints_v2.xcbkptlist
+flutter_boost2
+example/android/app/.classpath
+example/android/app/.project
+example/android/.project
+flutter_boost
+.flutter-plugins-dependencies
