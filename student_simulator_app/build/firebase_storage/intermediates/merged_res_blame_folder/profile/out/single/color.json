@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_res/profile/color/common_google_signin_btn_text_dark.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/27ed75583d8888cfd149af38bb71ea35/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_res/profile/color/common_google_signin_btn_tint.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/27ed75583d8888cfd149af38bb71ea35/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/firebase_storage/intermediates/merged_res/profile/color/common_google_signin_btn_text_light.xml",
+        "source": "/home/foward01/.gradle/caches/transforms-3/27ed75583d8888cfd149af38bb71ea35/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_text_light.xml"
+    }
+]
