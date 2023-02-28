@@ -3,6 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_simulator/settings/help/helpPage.dart';
+import 'package:student_simulator/settings/profile/profilePage.dart';
 import 'package:student_simulator/settings/send/sendEmail.dart';
 
 import 'Styles/Themes.dart';
@@ -90,7 +91,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                       : ThemeMode.light;
                                 }),
                             ListTile(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => const ProfilePage()));
+                              },
                               leading: const Icon(Icons.settings_applications),
                               title: const Text('Настройки пользователя'),
                             ),

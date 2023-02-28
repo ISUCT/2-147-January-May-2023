@@ -25,3 +25,4 @@ example/android/app/.project
 example/android/.project
 flutter_boost
 .flutter-plugins-dependencies
+/build/
