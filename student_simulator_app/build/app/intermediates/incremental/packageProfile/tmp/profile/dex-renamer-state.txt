@@ -1,4 +1,0 @@
-#Sun Feb 26 14:28:45 MSK 2023
-base.0=/home/foward01/StudioProjects/2-147-January-May-2023/student_simulator_app/build/app/intermediates/dex/profile/mergeDexProfile/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
