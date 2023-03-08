@@ -44,9 +44,14 @@ class Themes {
       trackColor: MaterialStateProperty.all(Colors.blue.withOpacity(0.2)),
     ),
   );
+
+
   static final light = ThemeData(
+    
     brightness: Brightness.light,
     hintColor: Colors.blue,
+    indicatorColor: Colors.blue,
+    progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.blue, linearTrackColor: Colors.blue),
     // inputDecorationTheme: InputDecorationTheme(
     //   border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
     //   labelStyle: TextStyle(color: Colors.blue, fontSize: 24.0),
@@ -55,7 +60,7 @@ class Themes {
     appBarTheme: AppBarTheme(backgroundColor: Colors.blue),
     scaffoldBackgroundColor: Colors.white,
     primaryColor: Colors.black,
-    colorScheme: ColorScheme.light(),
+    // colorScheme: ColorScheme.light(),
     iconTheme: IconThemeData(color: Colors.grey[800]),
     switchTheme: SwitchThemeData(
       thumbColor:

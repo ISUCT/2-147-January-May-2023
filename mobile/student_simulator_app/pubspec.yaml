@@ -7,6 +7,8 @@ environment:
   sdk: '>=2.18.6 <3.0.0'
 
 dependencies:
+  cached_network_image: ^3.2.3
+  flutter_cache_manager: ^3.3.0
   cupertino_icons: ^1.0.2
   file_picker: any
   firebase_core: any
@@ -16,20 +18,19 @@ dependencies:
   http: any
   icons_plus: any
   image_picker: any
+  intl: ^0.18.0
+  package_info_plus: ^3.0.3
   postgres: any
   provider: ^6.0.5
   shared_preferences: any
-  package_info_plus: ^3.0.3
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
-
-
 flutter:
-
 
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:

@@ -44,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           title: Padding(
                             padding:
                                 EdgeInsets.only(bottom: 8.0, left: 8, right: 8),
-                            child: Text("Настройки"),
+                            child: Text("Настройки",),
                           )),
                     ),
                     // SliverToBoxAdapter()

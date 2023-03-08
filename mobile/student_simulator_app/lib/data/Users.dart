@@ -7,7 +7,7 @@ List<UserModel> users = [
       username: 'Официальная игра \"Student\'s Life\"',
       pass: 'pass',
       description: '',
-      avatar_url: 'https://user-images.githubusercontent.com/32175240/220379115-fe09879f-492d-4ba4-8d44-b3e685399023.png',
+      avatar_url: 'https://user-images.githubusercontent.com/124696665/220377575-fe993ece-094f-47d4-8aae-e0aec909ece9.png',
       verifed: true,
       status: "Offical",)
 ];

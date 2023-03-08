@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:postgres/postgres.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:student_simulator/data/Users.dart';
@@ -19,6 +21,11 @@ class GuidePage extends StatefulWidget {
 }
 
 class _GuidePageState extends State<GuidePage> {
+  static final cachedImage = CacheManager(Config(
+    'cache1',
+    stalePeriod: const Duration(days: 15),
+    maxNrOfCacheObjects: 100,
+  ));
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -87,6 +94,8 @@ class _GuidePageState extends State<GuidePage> {
                                         backgroundColor: Colors.blue,
                                         backgroundImage: NetworkImage(
                                             users[index_user].avatar_url),
+                                        foregroundImage: NetworkImage(
+                                            users[index_user].avatar_url),
                                       ),
                                       const SizedBox(
                                         width: 5,
@@ -128,10 +137,29 @@ class _GuidePageState extends State<GuidePage> {
                                   ),
                                 ),
                                 guides[index].url_f[0] != null
-                                    ? Image.network(
-                                        guides[index].url_f[0] == null
-                                            ? ''
-                                            : guides[index].url_f[0]!)
+                                    ? AspectRatio(
+                                      aspectRatio: 4/3,
+                                      child: CachedNetworkImage(
+                                          cacheManager: cachedImage,
+                                          imageUrl: guides[index].url_f[0] == null
+                                              ? ''
+                                              : guides[index].url_f[0]!,
+                                          fit: BoxFit.cover,
+                                          placeholder: (context, url) =>
+                                              Container(
+                                            color: Colors.grey[400],
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Container(
+                                            color: Colors.grey[400],
+                                            alignment: Alignment.center,
+                                            child: Icon(
+                                              Icons.error,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ),
+                                    )
                                     : Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0),

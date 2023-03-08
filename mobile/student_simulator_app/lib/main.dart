@@ -6,10 +6,11 @@ import 'package:student_simulator/forumsPage.dart';
 import 'package:student_simulator/settings.dart';
 import 'package:provider/provider.dart';
 import 'Styles/Themes.dart';
+import 'api/apiGuide.dart';
 import 'guide/guidePage.dart';
 import 'main/mainPage.dart';
 
-Future main() async{
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -17,16 +18,16 @@ Future main() async{
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
+  static final ValueNotifier<ThemeMode> themeNotifier =
+      ValueNotifier(ThemeMode.light);
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-       create: (context) => ThemeProvider(),
-        builder: (context, child) =>
-      MaterialApp(
+      create: (context) => ThemeProvider(),
+      builder: (context, child) => MaterialApp(
         themeMode: Provider.of<ThemeProvider>(context).themeMode,
-              theme: Themes.light,
-              darkTheme: Themes.dark,
+        theme: Themes.light,
+        darkTheme: Themes.dark,
         debugShowCheckedModeBanner: false,
         title: 'Student Sumilator',
         home: const ButtomBar(),
@@ -52,6 +53,7 @@ class ButtomBar extends StatefulWidget {
 }
 
 class _ButtomBarState extends State<ButtomBar> {
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -62,8 +64,7 @@ class _ButtomBarState extends State<ButtomBar> {
         items: [
           BottomNavigationBarItem(
               activeIcon: const Icon(Icons.home),
-              icon:
-                  Icon(Icons.home, color: Theme.of(context).iconTheme.color),
+              icon: Icon(Icons.home, color: Theme.of(context).iconTheme.color),
               label: "Главная"),
           BottomNavigationBarItem(
               activeIcon: const Icon(Icons.quiz),
@@ -74,13 +75,13 @@ class _ButtomBarState extends State<ButtomBar> {
               label: "Гайды"),
           BottomNavigationBarItem(
               activeIcon: const Icon(Icons.message),
-              icon: Icon(Icons.message,
-                  color: Theme.of(context).iconTheme.color),
+              icon:
+                  Icon(Icons.message, color: Theme.of(context).iconTheme.color),
               label: "Форумы"),
           BottomNavigationBarItem(
               activeIcon: Icon(Icons.analytics),
-              icon:
-                  Icon(Icons.analytics, color: Theme.of(context).iconTheme.color),
+              icon: Icon(Icons.analytics,
+                  color: Theme.of(context).iconTheme.color),
               label: "Статистика"),
           BottomNavigationBarItem(
               activeIcon: const Icon(Icons.settings),
