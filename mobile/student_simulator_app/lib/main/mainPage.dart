@@ -54,7 +54,6 @@ class MainPage extends StatelessWidget {
                 child: CircleAvatar(
                   backgroundColor: Colors.blue,
                   backgroundImage: NetworkImage(users[index_user].avatar_url),
-                  foregroundImage: NetworkImage(users[index_user].avatar_url),
                   // child: Icon(Icons.person)),
                 ),
               ),

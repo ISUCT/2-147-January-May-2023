@@ -85,8 +85,8 @@ class _GuidePageState extends State<GuidePage> {
                                       CircleAvatar(
                                         radius: 15,
                                         backgroundColor: Colors.blue,
-                                        backgroundImage: NetworkImage(users[index_user].avatar_url),
-                                        foregroundImage: NetworkImage(users[index_user].avatar_url),
+                                        backgroundImage: NetworkImage(
+                                            users[index_user].avatar_url),
                                       ),
                                       const SizedBox(
                                         width: 5,

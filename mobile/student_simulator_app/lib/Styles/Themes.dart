@@ -21,10 +21,16 @@ class Themes {
 //       error: Colors.grey,
 //       onError: Colors.grey,
 // ),
-    appBarTheme: AppBarTheme(backgroundColor: Colors.grey.shade900,),
-    scaffoldBackgroundColor: Colors.grey.shade900,  
+    hintColor: Colors.blue,
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.grey.shade900,
+    ),
+    scaffoldBackgroundColor: Colors.grey.shade900,
     primaryColor: Colors.white,
-    
+    // inputDecorationTheme: InputDecorationTheme(
+    //   border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+    //   labelStyle: TextStyle(color: Colors.blue, fontSize: 24.0),
+    // ),
     // colorScheme: ColorScheme.dark(),
     iconTheme: IconThemeData(color: Colors.white),
     switchTheme: SwitchThemeData(
@@ -40,6 +46,11 @@ class Themes {
   );
   static final light = ThemeData(
     brightness: Brightness.light,
+    hintColor: Colors.blue,
+    // inputDecorationTheme: InputDecorationTheme(
+    //   border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+    //   labelStyle: TextStyle(color: Colors.blue, fontSize: 24.0),
+    // ),
     // brightness: Brightness.light,
     appBarTheme: AppBarTheme(backgroundColor: Colors.blue),
     scaffoldBackgroundColor: Colors.white,
