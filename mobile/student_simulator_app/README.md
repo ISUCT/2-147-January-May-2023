@@ -30,6 +30,9 @@ Student Simulator, 2D, mobile app
 <img src="flutter_05.png" alt="Обратиться в техподдержку" width="300"/>
 <img src="flutter_06.png" alt="Информация о приложении" width="300"/>
 <img src="flutter_07.png" alt="Помощь" width="300"/>
+</p>  
+  Админка
+<p>
 <img src="flutter_13.png" alt="Настройки приложения с админом" width="300"/>
 <img src="flutter_10.png" alt="Новостная лента админа" width="300"/>
 <img src="flutter_11.png" alt="Редактор новостей" width="300"/>
