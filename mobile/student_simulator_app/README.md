@@ -25,6 +25,7 @@ Student Simulator, 2D, mobile app
 <img src="flutter_08.png" alt="Новостная лента" width="300"/>
 <img src="flutter_09.png" alt="Подробное описание новости" width="300"/>
 <img src="flutter_02.png" alt="Гайды" width="300"/>
+<img src="flutter_14.png" alt="Подробное описание гайда" width="300"/>
 <img src="flutter_03.png" alt="Настройки" width="300"/>
 <img src="flutter_04.png" alt="Настройки (Темный режим)" width="300"/>
 <img src="flutter_05.png" alt="Обратиться в техподдержку" width="300"/>
