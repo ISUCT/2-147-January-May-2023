@@ -45,22 +45,36 @@ class Themes {
     ),
   );
 
-
   static final light = ThemeData(
-    
     brightness: Brightness.light,
     hintColor: Colors.blue,
     indicatorColor: Colors.blue,
-    progressIndicatorTheme: ProgressIndicatorThemeData(color: Colors.blue, linearTrackColor: Colors.blue),
-    // inputDecorationTheme: InputDecorationTheme(
-    //   border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
-    //   labelStyle: TextStyle(color: Colors.blue, fontSize: 24.0),
-    // ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: Colors.blue, linearTrackColor: Colors.blue),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+      labelStyle: TextStyle(color: Colors.blue, fontSize: 24.0),
+    ),
     // brightness: Brightness.light,
     appBarTheme: AppBarTheme(backgroundColor: Colors.blue),
     scaffoldBackgroundColor: Colors.white,
     primaryColor: Colors.black,
-    // colorScheme: ColorScheme.light(),
+    // colorSchemeSeed: Colors.black,
+    // colorScheme: ColorScheme(
+    //   background: Colors.purple,
+    //   primary: Colors.black,
+    //   onPrimary: Colors.white,
+    //   secondary: Colors.black38,
+    //   onSecondary: Colors.white,
+    //   error: Colors.red,
+    //   onError: Colors.red[800]!,
+    //   brightness: Brightness.light,
+    //   onBackground: Colors.purple[100]!,
+    //   surface: Colors.black,
+    //   onSurface: Colors.black,
+    // ),
+    // useMaterial3: true,
+    
     iconTheme: IconThemeData(color: Colors.grey[800]),
     switchTheme: SwitchThemeData(
       thumbColor:

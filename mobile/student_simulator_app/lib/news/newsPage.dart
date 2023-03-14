@@ -2,19 +2,32 @@
 
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:student_simulator/main/Widgets/CustomListTile.dart';
-import 'package:student_simulator/main/Widgets/shimmerWidget.dart';
-import 'package:student_simulator/main/Widgets/news.dart';
-import 'package:student_simulator/main/Widgets/newsImage.dart';
-import 'package:student_simulator/main/detalNewPage.dart';
+import 'package:student_simulator/news/Widgets/CustomListTile.dart';
+import 'package:student_simulator/news/Widgets/newsVideo.dart';
+import 'package:student_simulator/news/Widgets/shimmerWidget.dart';
+import 'package:student_simulator/news/Widgets/news.dart';
+import 'package:student_simulator/news/Widgets/newsImage.dart';
+import 'package:student_simulator/news/detalNewPage.dart';
 import '../api/apiNews.dart';
 import '../data/Users.dart';
+import 'editorNews.dart';
 
 int countSendEmail = 0;
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    getNews();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -133,33 +146,112 @@ class MainPage extends StatelessWidget {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             12),
-                                                    child: NewsImage(
-                                                      route: DetalNewPage(
-                                                        name: getResNewsImage[
-                                                                index]
-                                                            .name_n!,
-                                                        desc: getResNewsImage[
-                                                                index]
-                                                            .description_n!,
-                                                        time: getResNewsImage[
-                                                                index]
-                                                            .timestamp_n!,
-                                                        image: getResNewsImage[
-                                                                index]
-                                                            .url_f!,
-                                                      ),
-                                                      name:
-                                                          getResNewsImage[index]
-                                                              .name_n!,
-                                                      desc:
-                                                          getResNewsImage[index]
-                                                              .description_n!,
-                                                      time:
-                                                          getResNewsImage[index]
-                                                              .timestamp_n!,
-                                                      image:
-                                                          getResNewsImage[index]
-                                                              .url_f!,
+                                                    child: Stack(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      fit: StackFit.expand,
+                                                      children: [
+                                                        getResNewsImage[index]
+                                                                    .url_f!
+                                                                    .contains(
+                                                                        'png') ||
+                                                                getResNewsImage[
+                                                                        index]
+                                                                    .url_f!
+                                                                    .contains(
+                                                                        'jpg')
+                                                            ? NewsImage(
+                                                                route:
+                                                                    DetalNewPage(
+                                                                  id: getResNewsImage[
+                                                                          index]
+                                                                      .id!,
+                                                                  name: getResNewsImage[
+                                                                          index]
+                                                                      .name_n!,
+                                                                  desc: getResNewsImage[
+                                                                          index]
+                                                                      .description_n!,
+                                                                  time: getResNewsImage[
+                                                                          index]
+                                                                      .timestamp_n!,
+                                                                  image: getResNewsImage[
+                                                                          index]
+                                                                      .url_f!,
+                                                                ),
+                                                                name: getResNewsImage[
+                                                                        index]
+                                                                    .name_n!,
+                                                                desc: getResNewsImage[
+                                                                        index]
+                                                                    .description_n!,
+                                                                time: getResNewsImage[
+                                                                        index]
+                                                                    .timestamp_n!,
+                                                                image:
+                                                                    getResNewsImage[
+                                                                            index]
+                                                                        .url_f!,
+                                                              )
+                                                            : getResNewsImage[
+                                                                        index]
+                                                                    .url_f!
+                                                                    .contains(
+                                                                        'mp4')
+                                                                ? NewsImage(
+                                                                    route:
+                                                                        DetalNewPage(
+                                                                      id: getResNewsImage[
+                                                                              index]
+                                                                          .id!,
+                                                                      name: getResNewsImage[
+                                                                              index]
+                                                                          .name_n!,
+                                                                      desc: getResNewsImage[
+                                                                              index]
+                                                                          .description_n!,
+                                                                      time: getResNewsImage[
+                                                                              index]
+                                                                          .timestamp_n!,
+                                                                      image: getResNewsImage[
+                                                                              index]
+                                                                          .url_f!,
+                                                                    ),
+                                                                    name: getResNewsImage[
+                                                                            index]
+                                                                        .name_n!,
+                                                                    desc: getResNewsImage[
+                                                                            index]
+                                                                        .description_n!,
+                                                                    time: getResNewsImage[
+                                                                            index]
+                                                                        .timestamp_n!,
+                                                                    image: getResNewsImage[
+                                                                            index]
+                                                                        .thumbnail!,
+                                                                  )
+                                                                : SizedBox(),
+                                                        Positioned(
+                                                            bottom: 5,
+                                                            left: 10,
+                                                            right: 10,
+                                                            child: Text(
+                                                              getResNewsImage[
+                                                                      index]
+                                                                  .name_n!,
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 20),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              maxLines: 1,
+                                                            ))
+                                                      ],
                                                     )),
                                               ),
                                             );
@@ -171,6 +263,7 @@ class MainPage extends StatelessWidget {
                               return Column(
                                 children: [
                                   News(
+                                      id: getResNews[index - 1].id,
                                       name: getResNews[index - 1].name_n,
                                       image: getResNews[index - 1].url_f,
                                       desc: getResNews[index - 1].description_n,
@@ -257,6 +350,17 @@ class MainPage extends StatelessWidget {
               }),
         ),
       ),
+      // if (users[index_user].status == "admin"){
+      floatingActionButton: users[index_user].status == "admin"
+          ? FloatingActionButton.small(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const EditorNews()));
+              },
+              child: Icon(Icons.add),
+            )
+          : SizedBox(),
+      // }
     );
   }
 }

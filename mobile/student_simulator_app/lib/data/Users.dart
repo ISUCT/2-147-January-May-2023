@@ -9,5 +9,5 @@ List<UserModel> users = [
       description: '',
       avatar_url: 'https://user-images.githubusercontent.com/124696665/220377575-fe993ece-094f-47d4-8aae-e0aec909ece9.png',
       verifed: true,
-      status: "Offical",)
+      status: "admin",)
 ];

@@ -47,7 +47,7 @@ Future postGuide(String name, String desc, DateTime time) async {
   }
 }
 
-Future deleteGuide(int id) async {
+Future deleteGuide(String id) async {
   String url = "http://94.154.11.154/api/posts/deleteGuide.php";
   var res = await http.post(Uri.parse(url), body: {
     'id': id
@@ -64,7 +64,7 @@ Future deleteGuide(int id) async {
   }
 }
 
-Future updateGuide(int id, String name, String desc) async {
+Future updateGuide(String id, String name, String desc) async {
   String url = "http://94.154.11.154/api/posts/updateGuide.php";
   var res = await http.post(Uri.parse(url), body: {
     "id": id,

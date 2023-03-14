@@ -21,10 +21,11 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: (){
-      route != null ?
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => route!))
-      : null;
+      onTap: () {
+        route != null
+            ? Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => route!))
+            : null;
       },
       child: Container(
         constraints: const BoxConstraints(

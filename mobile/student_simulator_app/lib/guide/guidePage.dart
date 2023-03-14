@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:postgres/postgres.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:student_simulator/data/Users.dart';
 import 'package:student_simulator/guide/Model/guideModel.dart';
@@ -78,7 +77,8 @@ class _GuidePageState extends State<GuidePage> {
                                         name: guides[index].name_g,
                                         description:
                                             guides[index].description_g,
-                                        datetime: guides[index].timestamp_g,
+                                            url: guides[index].url_f,
+                                        time: guides[index].timestamp_g,
                                         user: users[0].username)),
                               );
                             },
@@ -130,7 +130,7 @@ class _GuidePageState extends State<GuidePage> {
                                       bottom: 8.0, left: 8.0, right: 8.0),
                                   child: Text(
                                     // '',
-                                    guides[index].name_g,
+                                    guides[index].name_g!,
                                     style: TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold),
@@ -165,7 +165,7 @@ class _GuidePageState extends State<GuidePage> {
                                             horizontal: 8.0),
                                         child: Text(
                                           // '',
-                                          guides[index].description_g,
+                                          guides[index].description_g!,
                                           style: TextStyle(fontSize: 20),
                                         ),
                                       ),

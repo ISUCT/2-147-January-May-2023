@@ -14,6 +14,7 @@ class NewsModel {
         required this.timestamp_n,
         required this.url_f,
         required this.type,
+        required this.thumbnail,
     });
 
     int? id;
@@ -21,6 +22,7 @@ class NewsModel {
     String? description_n;
     DateTime? timestamp_n;
     String? url_f;
+    String? thumbnail;
     String? type;
 
     factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
@@ -29,6 +31,7 @@ class NewsModel {
         description_n: json["description_n"],
         timestamp_n: DateTime.parse(json["timestamp_n"]),
         url_f: json["url_f"],
+        thumbnail: json["thumbnail"],
         type: json["type"],
     );
 
@@ -38,6 +41,7 @@ class NewsModel {
         "description_n": description_n,
         "timestamp_n": timestamp_n!.toIso8601String(),
         "url_f": url_f,
+        "thumbnail": thumbnail,
         "type": type,
     };
 }

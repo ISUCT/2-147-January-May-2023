@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'Styles/Themes.dart';
 import 'api/apiGuide.dart';
 import 'guide/guidePage.dart';
-import 'main/mainPage.dart';
+import 'news/newsPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

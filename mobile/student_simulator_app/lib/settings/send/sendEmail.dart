@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-import '../../main/mainPage.dart';
+import '../../news/newsPage.dart';
 
 class SendEmail extends StatefulWidget {
   const SendEmail({super.key});

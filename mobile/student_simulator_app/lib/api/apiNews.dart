@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../main/Model/newsModel.dart';
+import '../news/Model/newsModel.dart';
 
 List<NewsModel> getResNews = [];
 var response;
@@ -11,6 +11,7 @@ Future getNews() async {
   try {
     response = jsonDecode(res.body);
     if (res.statusCode == 200) {
+      getResNews = [];
       isDataNews = true;
       getResNews = newsModelFromJson(res.body);
       print("getNews: ${getResNews[0].id}");
@@ -48,12 +49,12 @@ Future getNewsImage() async {
   }
 }
 
-Future postNews(String name, String desc, DateTime time) async {
+Future postNews(String name, String desc) async {
   String url = "http://94.154.11.154/api/posts/News.php";
   var res = await http.post(Uri.parse(url), body: {
     "name_n": name,
     "description_n": desc,
-    "timestamp_n": time,
+    // "timestamp_n": time,
   });
   try {
     if (res.statusCode == 201) {
@@ -67,8 +68,8 @@ Future postNews(String name, String desc, DateTime time) async {
   }
 }
 
-Future deleteNews(int id) async {
-  String url = "http://94.154.11.154/api/posts/deleteNews.php";
+Future deleteNews(String id) async {
+  String url = "http://94.154.11.154/api/posts/deleteNew.php";
   var res = await http.post(Uri.parse(url), body: {'id': id});
   try {
     if (res.statusCode == 202) {
@@ -82,8 +83,8 @@ Future deleteNews(int id) async {
   }
 }
 
-Future updateNews(int id, String name, String desc) async {
-  String url = "http://94.154.11.154/api/posts/updateNews.php";
+Future updateNew(String id, String name, String desc) async {
+  String url = "http://94.154.11.154/api/posts/updateNew.php";
   var res = await http.post(Uri.parse(url), body: {
     "id": id,
     "name_n": name,
@@ -91,9 +92,9 @@ Future updateNews(int id, String name, String desc) async {
   });
   try {
     if (res.statusCode == 202) {
-      print("updateNews: ${res.statusCode.toString()}");
+      print("updateNew: ${res.statusCode.toString()}");
     } else {
-      print("Not updateNews: ${res.statusCode.toString()}");
+      print("Not updateNew: ${res.statusCode.toString()}");
     }
   } catch (e) {
     print("excep(updateNews) = $e");
