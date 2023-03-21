@@ -44,4 +44,8 @@ class NewsModel {
         "thumbnail": thumbnail,
         "type": type,
     };
+
+    static List <NewsModel> newsSnapshot(List snapshot){
+      return snapshot.map((e) => NewsModel.fromJson(e)).toList();
+    }
 }

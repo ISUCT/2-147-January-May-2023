@@ -37,10 +37,10 @@ class NewsImage extends StatelessWidget {
         imageUrl: image,
         fit: BoxFit.cover,
         placeholder: (context, url) => Container(
-          color: Colors.grey[400],
+          color: Theme.of(context).backgroundColor,
         ),
         errorWidget: (context, url, error) => Container(
-          color: Colors.grey[400],
+          color: Theme.of(context).backgroundColor,
           alignment: Alignment.center,
           child: const Icon(
             Icons.error,

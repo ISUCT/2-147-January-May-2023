@@ -7,6 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:student_simulator/data/Users.dart';
 import 'package:student_simulator/guide/Model/guideModel.dart';
 import 'package:student_simulator/guide/detalGuidePage.dart';
+import 'package:student_simulator/guide/editorGuides.dart';
 
 import '../api/apiGuide.dart';
 
@@ -30,7 +31,7 @@ class _GuidePageState extends State<GuidePage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: RefreshIndicator(
-      color: Colors.blue,
+      // color: Colors.blue,
       onRefresh: (() async {
         return Future<void>.delayed(const Duration(seconds: 3), () {
           setState(() {
@@ -38,7 +39,7 @@ class _GuidePageState extends State<GuidePage> {
           });
         });
       }),
-      child: CustomScrollView(physics: BouncingScrollPhysics(), slivers: [
+      child: CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
         SliverAppBar(
           snap: false,
           floating: true,
@@ -47,7 +48,16 @@ class _GuidePageState extends State<GuidePage> {
           actions: [
             IconButton(
               splashRadius: 20,
-              icon: Icon(EvaIcons.search),
+              icon: const Icon(Icons.add),
+              // color: Colors.black,
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const EditorGuides()));
+              },
+            ),
+            IconButton(
+              splashRadius: 20,
+              icon: const Icon(EvaIcons.search),
               // color: Colors.black,
               onPressed: () {},
             ),
@@ -57,7 +67,7 @@ class _GuidePageState extends State<GuidePage> {
             future: getGuide(),
             builder: (context, AsyncSnapshot snapshot) {
               if (isData) {
-                Future.delayed(Duration(seconds: 1), () {});
+                Future.delayed(const Duration(seconds: 1), () {});
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, index) {
@@ -74,12 +84,13 @@ class _GuidePageState extends State<GuidePage> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) => detalGuidePage(
+                                      id: guides[index].id,
                                         name: guides[index].name_g,
-                                        description:
+                                        desc:
                                             guides[index].description_g,
-                                            url: guides[index].url_f,
+                                        url: guides[index].url_f,
                                         time: guides[index].timestamp_g,
-                                        user: users[0].username)),
+                                        user: users[index_user].username)),
                               );
                             },
                             child: Column(
@@ -92,10 +103,10 @@ class _GuidePageState extends State<GuidePage> {
                                       CircleAvatar(
                                         radius: 15,
                                         backgroundColor: Colors.blue,
-                                        backgroundImage: NetworkImage(
-                                            users[index_user].avatar_url),
-                                        foregroundImage: NetworkImage(
-                                            users[index_user].avatar_url),
+                                        backgroundImage:
+                                            NetworkImage(users[0].avatar_url),
+                                        foregroundImage:
+                                            NetworkImage(users[0].avatar_url),
                                       ),
                                       const SizedBox(
                                         width: 5,
@@ -105,7 +116,7 @@ class _GuidePageState extends State<GuidePage> {
                                           SizedBox(
                                             // width: ,
                                             child: Text(
-                                              users[index_user].username,
+                                              users[0].username,
                                               maxLines: 1,
                                               softWrap: false,
                                               overflow: TextOverflow.ellipsis,
@@ -114,7 +125,7 @@ class _GuidePageState extends State<GuidePage> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
-                                          if (users[index_user].verifed)
+                                          if (users[0].verifed)
                                             const Icon(
                                               BoxIcons.bxs_badge_check,
                                               color: Colors.blue,
@@ -131,19 +142,20 @@ class _GuidePageState extends State<GuidePage> {
                                   child: Text(
                                     // '',
                                     guides[index].name_g!,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 guides[index].url_f[0] != null
                                     ? AspectRatio(
-                                      aspectRatio: 4/3,
-                                      child: CachedNetworkImage(
+                                        aspectRatio: 4 / 3,
+                                        child: CachedNetworkImage(
                                           cacheManager: cachedImage,
-                                          imageUrl: guides[index].url_f[0] == null
-                                              ? ''
-                                              : guides[index].url_f[0]!,
+                                          imageUrl:
+                                              guides[index].url_f[0] == null
+                                                  ? ''
+                                                  : guides[index].url_f[0]!,
                                           fit: BoxFit.cover,
                                           placeholder: (context, url) =>
                                               Container(
@@ -153,58 +165,58 @@ class _GuidePageState extends State<GuidePage> {
                                               Container(
                                             color: Colors.grey[400],
                                             alignment: Alignment.center,
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.error,
                                               color: Colors.red,
                                             ),
                                           ),
                                         ),
-                                    )
+                                      )
                                     : Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
+                                        padding: const EdgeInsets.only(
+                                            left: 8.0, right: 8, bottom: 16),
                                         child: Text(
                                           // '',
                                           guides[index].description_g!,
-                                          style: TextStyle(fontSize: 20),
+                                          style: const  TextStyle(fontSize: 20),
                                         ),
                                       ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      // TextButton(onPressed: (){}, child: Text('-', style: TextStyle(fontSize: 20),)),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          EvaIcons.minus_outline,
-                                          size: 20,
-                                        ),
-                                        splashRadius: 20,
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        // '',
-                                        guides[index].like_g.toString(),
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          EvaIcons.plus_outline,
-                                          size: 20,
-                                        ),
-                                        splashRadius: 20,
-                                      ),
-                                      // TextButton(style: ButtonStyle(foregroundColor: ),onPressed: (){}, child: Text('+', style: TextStyle(fontSize: 20))),
-                                    ],
-                                  ),
-                                )
+                                // Padding(
+                                //   padding: const EdgeInsets.all(8.0),
+                                //   child: Row(
+                                //     children: [
+                                //       // TextButton(onPressed: (){}, child: Text('-', style: TextStyle(fontSize: 20),)),
+                                //       IconButton(
+                                //         onPressed: () {},
+                                //         icon: Icon(
+                                //           EvaIcons.minus_outline,
+                                //           size: 20,
+                                //         ),
+                                //         splashRadius: 20,
+                                //       ),
+                                //       SizedBox(
+                                //         width: 8,
+                                //       ),
+                                //       Text(
+                                //         // '',
+                                //         guides[index].like_g.toString(),
+                                //         style: TextStyle(fontSize: 20),
+                                //       ),
+                                //       SizedBox(
+                                //         width: 8,
+                                //       ),
+                                //       IconButton(
+                                //         onPressed: () {},
+                                //         icon: Icon(
+                                //           EvaIcons.plus_outline,
+                                //           size: 20,
+                                //         ),
+                                //         splashRadius: 20,
+                                //       ),
+                                //       // TextButton(style: ButtonStyle(foregroundColor: ),onPressed: (){}, child: Text('+', style: TextStyle(fontSize: 20))),
+                                //     ],
+                                //   ),
+                                // )
                               ],
                             ),
                           ),
@@ -218,7 +230,7 @@ class _GuidePageState extends State<GuidePage> {
                   // itemBuilder: (context, index) {
                 );
               } else {
-                return SliverFillRemaining(
+                return const SliverFillRemaining(
                     child: Center(child: CircularProgressIndicator()));
                 // Future.delayed(Duration(seconds: 15), () {
                 //   );

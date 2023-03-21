@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:student_simulator/authPage.dart';
 import 'package:student_simulator/settings/help/helpPage.dart';
 import 'package:student_simulator/settings/profile/profilePage.dart';
 import 'package:student_simulator/settings/send/sendEmail.dart';
 
 import 'Styles/Themes.dart';
+import 'data/Users.dart';
 import 'settings/info/infoPage.dart';
+import 'settings/theme/themePage.dart';
 
-bool isDarked = false;
+dynamic isDarked = 0;
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -21,123 +24,276 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    var brightness = Theme.of(context).brightness;
-
+    Size size = MediaQuery.of(context).size;
+    var orientation = MediaQuery.of(context).orientation;
     return Scaffold(
-        body: ScrollConfiguration(
-            behavior: const ScrollBehavior(),
-            child: GlowingOverscrollIndicator(
-                axisDirection: AxisDirection.down,
-                color: Colors.blue[800]!,
-                child: CustomScrollView(
-                  scrollDirection: Axis.vertical,
-                  slivers: [
-                    const SliverAppBar(
-                      backgroundColor: Colors.blue,
-                      floating: false,
-                      pinned: true,
-                      expandedHeight: 200,
-                      flexibleSpace: FlexibleSpaceBar(
-                          titlePadding: EdgeInsets.only(top: 20),
-                          // centerTitle: true,
-                          title: Padding(
-                            padding:
-                                EdgeInsets.only(bottom: 8.0, left: 8, right: 8),
-                            child: Text("Настройки",),
-                          )),
-                    ),
-                    // SliverToBoxAdapter()
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        _switch() async {
-                          if (brightness.name == ThemeMode.light.name) {
-                            isDarked = false;
-                          } else {
-                            isDarked = true;
-                          }
-                          // SharedPreferences prefs =
-                          //     await SharedPreferences.getInstance();
-                          // setState(() {
-                          //   prefs.setBool('isDarkTheme', isDarked);
-                          //   isDarked = prefs.getBool('isDarkTheme') ?? false;
-                          //   print("test: ${prefs.getBool('isDarkTheme').toString()}");
-                          // });
-                        }
-
-                        _switch();
-                        return Column(
-                          children: [
-                            SwitchListTile(
-                                value: isDarked,
-                                secondary: Icon(
-                                    brightness.name == ThemeMode.dark.name
-                                        ? Icons.nightlight
-                                        : Icons.light_mode),
-                                title: Text(
-                                  brightness.name == ThemeMode.dark.name
-                                      ? "Темный режим"
-                                      : "Светлый режим",
-                                ),
-                                onChanged: (value) {
-                                  final provider = Provider.of<ThemeProvider>(
-                                      context,
-                                      listen: false);
-
-                                  provider.toggleTheme(value);
-
-                                  brightness.name == ThemeMode.dark.name
-                                      ? ThemeMode.dark
-                                      : ThemeMode.light;
-                                }),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const ProfilePage()));
-                              },
-                              leading: const Icon(Icons.settings_applications),
-                              title: const Text('Настройки пользователя'),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const SendEmail()));
-                              },
-                              leading: const Icon(BoxIcons.bx_support),
-                              title: const Text('Обратиться в техподдержку'),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const InfoPage()));
-                              },
-                              leading: const Icon(Icons.info),
-                              title: const Text('Информация о приложении'),
-                            ),
-                            ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const HelpPage()));
-                              },
-                              leading: const Icon(Icons.help),
-                              title: const Text('Помощь'),
-                            ),
-                            ListTile(
-                              onTap: () {},
-                              leading: const Icon(
-                                Icons.exit_to_app,
-                                color: Colors.red,
+        appBar: AppBar(
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                child: InkWell(
+                  customBorder: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              insetPadding: const EdgeInsets.all(5),
+                              title: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: Colors.blue,
+                                    backgroundImage: NetworkImage(
+                                        users[index_user].avatar_url),
+                                    foregroundImage: NetworkImage(
+                                        users[index_user].avatar_url),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  SizedBox(
+                                      width: size.width - 150,
+                                      child: Text(
+                                        users[index_user].username,
+                                        maxLines: 2,
+                                      ))
+                                ],
                               ),
-                              title: const Text(
-                                'Выход',
-                                style: TextStyle(color: Colors.red),
+                            ));
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).backgroundColor,
+                    backgroundImage: NetworkImage(users[index_user].avatar_url),
+                    // child: Icon(Icons.person)),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: LayoutBuilder(builder: (context, constraint) {
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Настройки",
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .backgroundColor),
+                            textAlign: TextAlign.left,
+                          ),
+
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          // Padding(
+                          // padding: const EdgeInsets.all(8.0),
+                          // child:
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Material(
+                              color:
+                                  Theme.of(context).appBarTheme.backgroundColor,
+                              child: Column(
+                                // itemCount: 1,
+                                // itemBuilder: (context, index) {
+
+                                // return Column(
+                                // crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ThemePage()));
+                                    },
+                                    // leading: const Icon(Icons.settings_applications),
+                                    title: const Text(
+                                      'Внешний вид',
+                                    ),
+                                    trailing:
+                                        const Icon(Icons.arrow_forward_ios),
+                                  ),
+                                  // SwitchListTile(
+                                  //     value: isDarked,
+                                  //     secondary: Icon(
+                                  //         brightness.name == ThemeMode.dark.name
+                                  //             ? Icons.nightlight
+                                  //             : Icons.light_mode),
+                                  //     title: Text(
+                                  //       brightness.name == ThemeMode.dark.name
+                                  //           ? "Темный режим"
+                                  //           : "Светлый режим",
+                                  //     ),
+                                  //     onChanged: (value) {
+                                  //       final provider = Provider.of<ThemeProvider>(
+                                  //           context,
+                                  //           listen: false);
+
+                                  //       provider.toggleTheme(value);
+
+                                  //       brightness.name == ThemeMode.dark.name
+                                  //           ? ThemeMode.dark
+                                  //           : ThemeMode.light;
+                                  //     }),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Divider(
+                                      thickness: 2.5,
+                                      height: 0,
+                                      // color: Colors.grey[400],
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ProfilePage()));
+                                    },
+                                    // leading: const Icon(Icons.settings_applications),
+                                    title: const Text(
+                                      'Настройки пользователя',
+                                    ),
+                                    trailing:
+                                        const Icon(Icons.arrow_forward_ios),
+                                  ),
+
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Divider(
+                                      thickness: 2.5,
+                                      height: 0,
+                                      // color: Colors.grey[400],
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const SendEmail()));
+                                    },
+                                    // leading: const Icon(BoxIcons.bx_support),
+                                    title: const Text(
+                                      'Обратиться в техподдержку',
+                                    ),
+                                    trailing:
+                                        const Icon(Icons.arrow_forward_ios),
+                                  ),
+                                 const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Divider(
+                                      thickness: 2.5,
+                                      height: 0,
+                                      // color: Colors.grey[400],
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const InfoPage()));
+                                    },
+                                    // leading: const Icon(Icons.info),
+                                    title: const Text(
+                                      'Информация о приложении',
+                                    ),
+                                    trailing:
+                                        const Icon(Icons.arrow_forward_ios),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Divider(
+                                      thickness: 2.5,
+                                      height: 0,
+                                      // color: Colors.grey[400],
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HelpPage()));
+                                    },
+                                    // leading: const Icon(Icons.help),
+                                    title: const Text(
+                                      'Помощь',
+                                    ),
+                                    trailing:
+                                        const Icon(Icons.arrow_forward_ios),
+                                  ),
+                                ],
+                                // ),
+                                // }
                               ),
                             ),
-                          ],
-                        );
-                      }, childCount: 1),
-                    )
-                  ],
-                ))));
+                          ),
+                        ],
+                      ),
+                      // )
+                      if (orientation == Orientation.landscape)
+                        const SizedBox(
+                          height: 100,
+                        ),
+                      const Spacer(),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Material(
+                          color: Theme.of(context).appBarTheme.backgroundColor,
+                          child: ListTile(
+                            onTap: () {
+                              return runApp(AuthPage());
+                            },
+                            // leading: const Icon(
+                            //   Icons.exit_to_app,
+                            //   color: Colors.red,
+                            // ),
+                            title: Text(
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .backgroundColor),
+                              'Выход из приложения',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  // ),
+                  // ),
+                  // )
+                ),
+              ),
+            ),
+          );
+        }));
   }
 }

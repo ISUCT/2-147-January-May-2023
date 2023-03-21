@@ -3,26 +3,36 @@ import 'package:http/http.dart' as http;
 import '../news/Model/newsModel.dart';
 
 List<NewsModel> getResNews = [];
-var response;
-bool isDataNews = false;
-Future getNews() async {
+bool isDataNews = true;
+Future <List<NewsModel>> getNews() async {
   String url = "http://94.154.11.154/api/posts/News.php";
   var res = await http.get(Uri.parse(url));
   try {
-    response = jsonDecode(res.body);
     if (res.statusCode == 200) {
-      getResNews = [];
-      isDataNews = true;
-      getResNews = newsModelFromJson(res.body);
-      print("getNews: ${getResNews[0].id}");
-    } else {
+      // var response = jsonDecode(res.body);
       isDataNews = false;
+      // List<NewsModel> tempList = [];
+      getResNews = newsModelFromJson(res.body);
+      // for(var v in getResNews){
+        // tempList.add(v);
+      // }
+      // getResNews = response as List;
+      // print("getNews: ${getResNews[0].id}");
+      print("getNews: ${res.statusCode}");
+      // return NewsModel.newsSnapshot(tempList).toList();
+      return getResNews;
+    } else {
+      isDataNews = true;
       print("Not getNews");
+      // return [];
+      return [];
     }
   } catch (e) {
-    isDataNews = false;
+    isDataNews = true;
     print("excep(getNews) = $e");
     print("Recorted(getNews): ${res.statusCode}");
+    // return [];
+    return [];
   }
 }
 

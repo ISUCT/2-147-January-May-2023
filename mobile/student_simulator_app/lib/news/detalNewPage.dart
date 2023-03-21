@@ -32,6 +32,13 @@ class _DetalNewPageState extends State<DetalNewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back_ios),
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        // ),
         title: const Text("Описание новости"),
         actions: [
           if (users[index_user].status == "admin")
@@ -83,10 +90,10 @@ class _DetalNewPageState extends State<DetalNewPage> {
                                       }
                                     });
 
-                                    getNews();
+                                    // getNews();
                                     await Future<void>.delayed(
                                         const Duration(seconds: 3), () {
-                                      getNews();
+                                      // getNews();
                                     });
                                     Navigator.pop(context);
                                     Navigator.pop(context);
@@ -112,25 +119,34 @@ class _DetalNewPageState extends State<DetalNewPage> {
               ),
               Text(
                 widget.name,
-                style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color:
+                        Theme.of(context).textTheme.bodyLarge!.backgroundColor),
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
                 "Опубликована ${DateFormat('HH.mm dd.MM.yyyy').format(widget.time)}",
-                style: const TextStyle(
-                    color: Colors.grey, fontStyle: FontStyle.italic),
+                style: TextStyle(
+                    color:
+                        Theme.of(context).textTheme.bodySmall!.backgroundColor,
+                    fontStyle: FontStyle.italic),
                 textAlign: TextAlign.right,
               ),
               const SizedBox(
                 height: 10,
               ),
               widget.image != null
-                  ? CachedNetworkImage(
-                      imageUrl: widget.image!,
-                      height: 250,
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.image!,
+                        height: 250,
+                        fit: BoxFit.cover,
+                      ),
                     )
                   : const SizedBox(),
               const SizedBox(
@@ -138,7 +154,10 @@ class _DetalNewPageState extends State<DetalNewPage> {
               ),
               Text(
                 widget.desc,
-                style: const TextStyle(fontSize: 18),
+                style: TextStyle(
+                    fontSize: 18,
+                    color:
+                        Theme.of(context).textTheme.bodyLarge!.backgroundColor),
               ),
             ],
           ),

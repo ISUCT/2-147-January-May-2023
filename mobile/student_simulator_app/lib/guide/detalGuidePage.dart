@@ -1,19 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:student_simulator/api/apiGuide.dart';
+import 'package:student_simulator/guide/editorGuides.dart';
+
+import '../data/Users.dart';
 
 class detalGuidePage extends StatefulWidget {
   const detalGuidePage(
-      {required this.name,
-      required this.description,
+      {required this.id,
+      required this.name,
+      required this.desc,
       required this.time,
       required this.url,
       required this.user,
       super.key});
+  final int? id;
   final String? name;
-  final String? description;
+  final String? desc;
   final List<String?> url;
   final DateTime? time;
   final String? user;
@@ -29,7 +36,79 @@ class _detalGuidePageState extends State<detalGuidePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text("Подробности"),
+        actions: [
+          // if (users[index_user].status == "admin")
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => EditorGuides(
+                            id: widget.id.toString(),
+                            name: widget.name,
+                            desc: widget.desc,
+                          )));
+                },
+              ),
+              IconButton(
+                  icon: Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    bool isChecked = false;
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text("Подтвердить?"),
+                          content: Text(
+                              "Вы хотите удалить этот гайд навсегда?\nid: ${widget.id}"),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Нет")),
+                            TextButton(
+                                onPressed: () async {
+                                  setState(() {
+                                    deleteGuide(widget.id.toString());
+                                    if (widget.url[0] != null) {
+                                      for (int i = 0;
+                                          i < widget.url.length;
+                                          i++) {
+                                        try {
+                                          FirebaseStorage.instance
+                                              .refFromURL(widget.url[i]!)
+                                              .delete();
+                                        } catch (e) {
+                                          print("exp: $e");
+                                        }
+                                      }
+                                    }
+                                  });
+
+                                  // getNews();
+                                  await Future<void>.delayed(
+                                      const Duration(seconds: 3), () {
+                                    // getNews();
+                                  });
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                                child: Text("Да"))
+                          ],
+                        );
+                      },
+                    );
+                  })
+            ],
+          ),
+        ],
       ),
       body:
           // SingleChildScrollView(
@@ -125,7 +204,7 @@ class _detalGuidePageState extends State<detalGuidePage> {
               height: 10,
             ),
             Text(
-              widget.description!,
+              widget.desc!,
               style: const TextStyle(fontSize: 18),
             ),
           ],

@@ -35,10 +35,12 @@ class CustomListTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: SizedBox(
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+                // child: 
+                SizedBox(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -50,8 +52,8 @@ class CustomListTile extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-              const Spacer(),
+              // ),
+              // const Spacer(),
               ClipRRect(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   borderRadius: BorderRadius.circular(8),

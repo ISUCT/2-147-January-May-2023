@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:student_simulator/Styles/Colors.dart';
 import 'package:student_simulator/analysisPage.dart';
+import 'package:student_simulator/authPage.dart';
 import 'package:student_simulator/forumsPage.dart';
 
 import 'package:student_simulator/settings.dart';
@@ -13,7 +15,9 @@ import 'news/newsPage.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(const MyApp());
+  // runApp(AuthPage());
 }
 
 class MyApp extends StatelessWidget {
@@ -37,10 +41,10 @@ class MyApp extends StatelessWidget {
 }
 
 List _pages = [
-  const MainPage(),
+  const NewsPage(),
   const GuidePage(),
-  const ForumsPage(),
   const AnalysisPage(),
+  const ForumsPage(),
   const SettingsPage(),
 ];
 int _currentIndex = 0;
@@ -53,7 +57,6 @@ class ButtomBar extends StatefulWidget {
 }
 
 class _ButtomBarState extends State<ButtomBar> {
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -61,35 +64,42 @@ class _ButtomBarState extends State<ButtomBar> {
       body: Container(
           height: size.height, child: _pages.elementAt(_currentIndex)),
       bottomNavigationBar: BottomNavigationBar(
+        // backgroundColor: appBarColor,
+        selectedItemColor: Colors.blue,
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        
+        // unselectedItemColor: Theme.of(context).appBarTheme.foregroundColor,
+        type: BottomNavigationBarType.fixed,
+        
         items: [
           BottomNavigationBarItem(
               activeIcon: const Icon(Icons.home),
-              icon: Icon(Icons.home, color: Theme.of(context).iconTheme.color),
+              icon: Icon(Icons.home, ),
               label: "Главная"),
           BottomNavigationBarItem(
               activeIcon: const Icon(Icons.quiz),
               icon: Icon(
                 Icons.quiz,
-                color: Theme.of(context).iconTheme.color,
+                
               ),
               label: "Гайды"),
           BottomNavigationBarItem(
-              activeIcon: const Icon(Icons.message),
-              icon:
-                  Icon(Icons.message, color: Theme.of(context).iconTheme.color),
-              label: "Форумы"),
-          BottomNavigationBarItem(
               activeIcon: Icon(Icons.analytics),
               icon: Icon(Icons.analytics,
-                  color: Theme.of(context).iconTheme.color),
+                  ),
               label: "Статистика"),
+          BottomNavigationBarItem(
+              activeIcon: const Icon(Icons.message),
+              icon:
+                  Icon(Icons.message, ),
+              label: "Форумы"),
           BottomNavigationBarItem(
               activeIcon: const Icon(Icons.settings),
               icon: Icon(Icons.settings,
-                  color: Theme.of(context).iconTheme.color),
+                  ),
               label: "Настройки"),
         ],
-        selectedItemColor: Colors.blue,
         currentIndex: _currentIndex,
         onTap: (int index) {
           setState(() {

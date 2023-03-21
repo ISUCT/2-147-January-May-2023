@@ -38,7 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: 200,
                 child: Center(
                   child: CircleAvatar(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Theme.of(context).backgroundColor,
                     backgroundImage: NetworkImage(users[index_user].avatar_url),
                     minRadius: 50,
                     maxRadius: 75,

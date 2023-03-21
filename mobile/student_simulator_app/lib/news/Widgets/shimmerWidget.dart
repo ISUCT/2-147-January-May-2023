@@ -8,8 +8,8 @@ class ShimmerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       child: child,
-      baseColor: Colors.grey[400]!,
-      highlightColor: Colors.grey[300]!,
+      baseColor: Theme.of(context).backgroundColor,
+      highlightColor: Theme.of(context).appBarTheme.backgroundColor!,
     );
   }
 }

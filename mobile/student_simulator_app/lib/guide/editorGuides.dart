@@ -5,15 +5,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:student_simulator/api/apiFNews.dart';
-import 'package:student_simulator/api/apiNews.dart';
-import 'package:student_simulator/news/Model/newsModel.dart';
-import 'package:student_simulator/news/newsPage.dart';
-import 'package:video_player/video_player.dart';
+import 'package:student_simulator/api/apiFGuide.dart';
+import 'package:student_simulator/api/apiGuide.dart';
 import 'package:uuid/uuid.dart';
 
-class EditorNews extends StatefulWidget {
-  const EditorNews(
+class EditorGuides extends StatefulWidget {
+  const EditorGuides(
       {this.id, this.name, this.desc, this.thumbnail, this.file, super.key});
   final String? id;
   final String? name;
@@ -24,10 +21,10 @@ class EditorNews extends StatefulWidget {
   static final _formKey = GlobalKey<FormState>();
 
   @override
-  State<EditorNews> createState() => _EditorNewsState();
+  State<EditorGuides> createState() => _EditorGuidesState();
 }
 
-class _EditorNewsState extends State<EditorNews> {
+class _EditorGuidesState extends State<EditorGuides> {
   TextEditingController controllerName = new TextEditingController();
   TextEditingController controllerdesc = new TextEditingController();
 
@@ -55,14 +52,14 @@ class _EditorNewsState extends State<EditorNews> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Редактор новостей'),
+        title: const Text('Редактор гайдов'),
       ),
       body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Form(
-              key: EditorNews._formKey,
+              key: EditorGuides._formKey,
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -72,7 +69,7 @@ class _EditorNewsState extends State<EditorNews> {
                     style: const TextStyle(fontSize: 16),
                     decoration: InputDecoration(
                       label: const Text(
-                        "Название новости",
+                        "Название гайда",
                         style: TextStyle(fontSize: 16),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -105,7 +102,7 @@ class _EditorNewsState extends State<EditorNews> {
                     maxLines: 10,
                     decoration: InputDecoration(
                       label: const Text(
-                        "Описание новости",
+                        "Описание гайда",
                         style: TextStyle(fontSize: 16),
                       ),
                       enabledBorder: OutlineInputBorder(
@@ -186,7 +183,7 @@ class _EditorNewsState extends State<EditorNews> {
                                                     imageFile!,
                                                     fit: BoxFit.cover,
                                                   )),
-                                              Positioned(
+                                              const Positioned(
                                                 left: 4,
                                                 bottom: 0,
                                                 child: Icon(
@@ -203,7 +200,7 @@ class _EditorNewsState extends State<EditorNews> {
                                                       isImage = false;
                                                     });
                                                   },
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.close,
                                                     color: Colors.red,
                                                   ),
@@ -211,7 +208,7 @@ class _EditorNewsState extends State<EditorNews> {
                                               )
                                             ],
                                           ))
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                   const SizedBox(
                                     width: 10,
                                   ),
@@ -235,7 +232,7 @@ class _EditorNewsState extends State<EditorNews> {
                                                   ),
                                                 ),
                                               ),
-                                              Positioned(
+                                              const Positioned(
                                                 left: 4,
                                                 bottom: 0,
                                                 child: Icon(
@@ -252,7 +249,7 @@ class _EditorNewsState extends State<EditorNews> {
                                                       isVideo = false;
                                                     });
                                                   },
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.close,
                                                     color: Colors.red,
                                                   ),
@@ -260,7 +257,7 @@ class _EditorNewsState extends State<EditorNews> {
                                               )
                                             ],
                                           ))
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ],
                               ),
                             ),
@@ -277,37 +274,37 @@ class _EditorNewsState extends State<EditorNews> {
                     width: size.width,
                     child: ElevatedButton(
                         onPressed: () async {
-                          if (EditorNews._formKey.currentState!.validate()) {
+                          if (EditorGuides._formKey.currentState!.validate()) {
                             if (widget.id == null) {
-                              postNews(
+                              postGuide(
                                   controllerName.text, controllerdesc.text);
 
                               await Future<void>.delayed(
                                   const Duration(seconds: 3), () {});
                               // setState(() {
-                              //   getNews();
+                              //   getGuide();
                               // });
                               await Future<void>.delayed(
                                   const Duration(seconds: 1), () {});
                               setState(() {
-                                getNews();
+                                getGuide();
                               });
                               print("Successed");
                               if (isImage) {
-                                sendImage(getResNews[0].id.toString()); // Тут должна быть отправка изображени по 
+                                sendImage(getResGuide[0].id.toString()); // Тут должна быть отправка изображени по 
                               }
                               if (isVideo) {
-                                sendVideo(getResNews[0].id.toString());
+                                sendVideo(getResGuide[0].id.toString());
                               }
 
                               Navigator.of(context).pop();
                             } else {
-                              updateNew(widget.id!, controllerName.text,
+                              updateGuide(widget.id!, controllerName.text,
                                   controllerdesc.text);
                               await Future<void>.delayed(
                                   const Duration(seconds: 3), () {});
                               // setState(() {
-                              //   getNews();
+                              //   getGuide();
                               // });
                               await Future<void>.delayed(
                                   const Duration(seconds: 1), () {});
@@ -374,7 +371,7 @@ class _EditorNewsState extends State<EditorNews> {
     String fileName = Uuid().v1();
     int status = 1;
     var img =
-        FirebaseStorage.instance.ref().child('News').child('${fileName}.png');
+        FirebaseStorage.instance.ref().child('Guides').child('${fileName}.png');
     var uploadTask = await img.putFile(imageFile!).catchError((error) async {
       status = 0;
     });
@@ -383,7 +380,7 @@ class _EditorNewsState extends State<EditorNews> {
       if (isVideo) {
         thumbnail = imageUrl;
       } else {
-        postFNews(imageUrl, 'img', id, 'null');
+        postFGuide(imageUrl, 'img', id, 'null');
       }
       print("Изображение: $imageUrl");
     }
@@ -393,14 +390,14 @@ class _EditorNewsState extends State<EditorNews> {
     String fileName = Uuid().v1();
     int status = 1;
     var mp4 =
-        FirebaseStorage.instance.ref().child('News').child('${fileName}.mp4');
+        FirebaseStorage.instance.ref().child('Guides').child('${fileName}.mp4');
     var uploadTask = await mp4.putFile(videoFile!).catchError((error) async {
       status = 0;
     });
     if (status == 1) {
       String videoUrl = await uploadTask.ref.getDownloadURL();
-      postFNews(videoUrl, 'mp4', id, thumbnail!);
-      // postFNews(imageUrl, 'img', getResNews.first.id!, 'null');
+      postFGuide(videoUrl, 'mp4', id, thumbnail!);
+      // postFGuide(imageUrl, 'img', getResGuide.first.id!, 'null');
       print("Видео: $videoUrl");
     }
   }

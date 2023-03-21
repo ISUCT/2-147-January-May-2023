@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:student_simulator/news/Widgets/newsVideo.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 // import 'package:shimmer/shimmer.dart';
@@ -70,17 +71,23 @@ class _NewsState extends State<News> {
         ),
         // leading: Image.network(image),
         title: SizedBox(
-          width: widget.image != null ? size.width - 180 : null,
+          width: widget.image != null ? size.width - 200 : null,
           child: Text(
             widget.name!,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.bodyLarge!.backgroundColor),
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        subtitle: Text(
-          timeToStr(widget.time),
-          style: const TextStyle(fontSize: 16, color: Colors.grey),
+        subtitle: Row(
+          children: [
+            Icon(EvaIcons.clock_outline, size: 20, color: Theme.of(context).textTheme.bodySmall!.backgroundColor,),
+            SizedBox(width: 5,),
+            Text(
+              timeToStr(widget.time),
+              style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.bodySmall!.backgroundColor),
+            ),
+          ],
         ),
         trailing: widget.image != null &&
                 (widget.image!.contains('png') || widget.image!.contains('jpg'))
@@ -92,10 +99,10 @@ class _NewsState extends State<News> {
                 imageUrl: widget.image!,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
-                  color: Colors.grey[400],
+                  color: Theme.of(context).backgroundColor,
                 ),
                 errorWidget: (context, url, error) => Container(
-                  color: Colors.grey[400],
+                  color: Theme.of(context).backgroundColor,
                   alignment: Alignment.center,
                   child: const Icon(
                     Icons.error,
@@ -105,7 +112,7 @@ class _NewsState extends State<News> {
               )
             : widget.image != null && widget.image!.contains('mp4')
                 ? Container(
-                    color: Colors.grey[400],
+                    color: Theme.of(context).backgroundColor,
                     height: 100,
                     width: 150,
                     child: CachedVideoPlayer(_controller))

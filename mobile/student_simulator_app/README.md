@@ -22,12 +22,16 @@ Student Simulator, 2D, mobile app
 
 ### Скрины приложения
 <p float="left">
-<img src="flutter_08.png" alt="Новостная лента" width="300"/>
-<img src="flutter_09.png" alt="Подробное описание новости" width="300"/>
-<img src="flutter_02.png" alt="Гайды" width="300"/>
+<img src="flutter_15.png" alt="Новостная лента" width="300"/>
+<img src="flutter_16.png" alt="Подробное описание новости" width="300"/>
+<img src="flutter_22.png" alt="Новостная лента (Темный режим)" width="300"/>
+<img src="flutter_23.png" alt="Подробное описание новости (Темный режим)" width="300"/>
+<img src="flutter_17.png" alt="Гайды" width="300"/>
 <img src="flutter_14.png" alt="Подробное описание гайда" width="300"/>
-<img src="flutter_03.png" alt="Настройки" width="300"/>
-<img src="flutter_04.png" alt="Настройки (Темный режим)" width="300"/>
+<img src="flutter_18.png" alt="Настройки" width="300"/>
+<img src="flutter_19.png" alt="Внешний вид" width="300"/>
+<img src="flutter_20.png" alt="Внешний вид (Темный режим)" width="300"/>
+<img src="flutter_21.png" alt="Настройки (Темный режим)" width="300"/>
 <img src="flutter_05.png" alt="Обратиться в техподдержку" width="300"/>
 <img src="flutter_06.png" alt="Информация о приложении" width="300"/>
 <img src="flutter_07.png" alt="Помощь" width="300"/>

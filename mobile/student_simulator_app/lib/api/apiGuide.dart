@@ -28,12 +28,11 @@ Future getGuide() async {
   }
 }
 
-Future postGuide(String name, String desc, DateTime time) async {
+Future postGuide(String name, String desc) async {
   String url = "http://94.154.11.154/api/posts/Guide.php";
   var res = await http.post(Uri.parse(url), body: {
     "name_g": name,
     "description_g": desc,
-    "timestamp_g": time,
   });
   try {
     if (res.statusCode == 201) {
