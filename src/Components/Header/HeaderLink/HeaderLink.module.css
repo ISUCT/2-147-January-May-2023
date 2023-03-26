@@ -1,0 +1,27 @@
+.link {
+    height: 35px;
+    background-color: black;
+
+}
+
+.rightButton {
+    color: #a9b9ba;
+
+    display: flex;
+    float: right;
+
+    padding: 5px;
+    column-gap: 20px;
+    padding-right: 20px;
+}
+
+.leftButton {
+    color: #a9b9ba;
+    display: flex;
+    float: left;
+
+    padding: 5px;
+    column-gap: 20px;
+
+    padding-left: 20px;
+}

@@ -1,0 +1,18 @@
+.app-wrapper {
+    display: grid;
+  
+    margin: 0 auto;
+    width: 1400px;
+    grid-template-areas:
+      "hr hr"
+      "f  b";
+  
+      grid-template-rows: 265px 1fr;
+      grid-template-columns: 10fr 3fr;
+  
+  }
+  
+  .app-wrapper-content {
+    grid-area: f;
+    background-color: #EFDDC0;
+  }
