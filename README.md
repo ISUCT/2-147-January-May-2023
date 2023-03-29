@@ -3,6 +3,7 @@
 ## Design
 
 - [Figma: Landing](https://www.figma.com/proto/nEZC73T0FjMnaFkC0gEBvv/Untitled?node-id=6%3A16&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=6%3A16)
+- [Figma: Forum](https://www.figma.com/file/WzyANew3rV9y6uVjrdUnh8/Forum?node-id=0%3A1&t=Obw6NlFEIJCuTmyA-1)
 - [Mobile: Readme](./mobile/student_simulator_app/README.md)
 
 ## Collaborators
