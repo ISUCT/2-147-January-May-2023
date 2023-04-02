@@ -1,8 +1,9 @@
 import './App.scss';
+import Border from './Components/molecules/Border/Border';
+import Forum from './Components/molecules/Forum/Forum';
 
-import Header from './Components/Header/Header';
-import Forum from './Components/body/Forum';
-import Border from './Components/Border/Border';
+import Header from './Components/molecules/Header/Header';
+
 
 function App() {
   return (

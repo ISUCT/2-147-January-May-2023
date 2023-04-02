@@ -1,5 +1,5 @@
 import React from "react";
-import disign from "./LastTeme.module.css"
+import disign from "../BorderStyle/LastTeme.module.css"
 
 export default function LastTeme() {
     return (

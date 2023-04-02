@@ -1,13 +1,7 @@
 import React from "react";
 
-import logo from "../Assets/Logo/logoStudent.jpg"
-// import cssHeader from "./Header.module.css";
-
 import "./Header.scss";
-
-import HeaderLink from "./HeaderLink/HeaderLink";
-import LogoInformations from "./LogoInformations/LogoInformations";
-import SeekFooter from "./SeekFooter/SeekFooter";
+import {HeaderLink, LogoInformations, SeekFooter} from "../../atoms/HeaderAtoms";
 
 const Header = () => {
     return (

@@ -1,5 +1,5 @@
 import React from "react";
-import disign from "./TemeNews.module.css"
+import disign from "../BorderStyle/TemeNews.module.css"
 
 export default function TemeNews() {
     return (

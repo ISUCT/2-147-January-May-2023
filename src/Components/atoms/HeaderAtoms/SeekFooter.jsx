@@ -1,5 +1,5 @@
 import React from "react";
-import disign from "./SeekFooter.module.css"
+import disign from "./StyleHeder/SeekFooter.module.css"
 
 
 export default function SeekFooter() {

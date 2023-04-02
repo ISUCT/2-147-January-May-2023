@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../../Assets/Logo/logoStudent.jpg"
-import disign from "./LogoInformations.module.css"
+import disign from "./StyleHeder/LogoInformations.module.css"
+import logo from "./assets/logoStudent.jpg"
 
 export default function LogoInformations() {
     return(

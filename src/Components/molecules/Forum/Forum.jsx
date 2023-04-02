@@ -1,6 +1,6 @@
 import React from "react";
 import cssForum from './Forum.module.css';
-import { TemeConsturcrot } from "./Teme/TemeConsturcrot";
+import { TemeConsturcrot } from "../../atoms/TemeAtoms/TemeConsturcrot";
 
 
 const Forum = () => {
