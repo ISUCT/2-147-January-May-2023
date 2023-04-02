@@ -1,18 +1,12 @@
 import './App.scss';
-import Border from './Components/molecules/Border/Border';
-import Forum from './Components/molecules/Forum/Forum';
 
-import Header from './Components/molecules/Header/Header';
+import { MainOrganism } from './Components/organisms/MainOrganism/MainOrganism';
 
 
 function App() {
   return (
-    <div className="app-wrapper">
-      <Header />
-      <Border />
-      <div className='app-wrapper-content'>
-        <Forum />
-      </div>
+    <div>
+      <MainOrganism />
     </div>
   );
 }
