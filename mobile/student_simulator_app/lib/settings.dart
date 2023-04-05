@@ -3,6 +3,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_simulator/authPage.dart';
+import 'package:student_simulator/components/slide.dart';
 import 'package:student_simulator/settings/help/helpPage.dart';
 import 'package:student_simulator/settings/profile/profilePage.dart';
 import 'package:student_simulator/settings/send/sendEmail.dart';
@@ -11,8 +12,6 @@ import 'Styles/Themes.dart';
 import 'data/Users.dart';
 import 'settings/info/infoPage.dart';
 import 'settings/theme/themePage.dart';
-
-dynamic isDarked = 0;
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -80,7 +79,8 @@ class _SettingsPageState extends State<SettingsPage> {
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
               child: IntrinsicHeight(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,10 +120,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                 children: [
                                   ListTile(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const ThemePage()));
+                                      Navigator.of(context).push(EnterExitRoute(
+                                          // exitPage: this.context.widget,
+                                          enterPage: const ThemePage()));
+                                      // Navigator.of(context).push(
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             const ThemePage()));
                                     },
                                     // leading: const Icon(Icons.settings_applications),
                                     title: const Text(
@@ -155,8 +158,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                   //           : ThemeMode.light;
                                   //     }),
                                   const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.0),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Divider(
                                       thickness: 2.5,
                                       height: 0,
@@ -166,9 +169,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ListTile(
                                     onTap: () {
                                       Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const ProfilePage()));
+                                          // MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         const ProfilePage()));
+                                          EnterExitRoute(
+                                              // exitPage: this.context.widget,
+                                              enterPage: const ProfilePage()));
                                     },
                                     // leading: const Icon(Icons.settings_applications),
                                     title: const Text(
@@ -179,8 +185,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
 
                                   const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.0),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Divider(
                                       thickness: 2.5,
                                       height: 0,
@@ -189,10 +195,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
                                   ListTile(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const SendEmail()));
+                                      Navigator.of(context).push(EnterExitRoute(
+                                              // exitPage: this.context.widget,
+                                              enterPage: const SendEmail())
+                                          // MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         const SendEmail())
+                                          );
                                     },
                                     // leading: const Icon(BoxIcons.bx_support),
                                     title: const Text(
@@ -201,9 +210,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                     trailing:
                                         const Icon(Icons.arrow_forward_ios),
                                   ),
-                                 const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.0),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Divider(
                                       thickness: 2.5,
                                       height: 0,
@@ -212,10 +221,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
                                   ListTile(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const InfoPage()));
+                                      Navigator.of(context).push(EnterExitRoute(
+                                              // exitPage: this.context.widget,
+                                              enterPage: const InfoPage())
+                                          // MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         const InfoPage())
+                                          );
                                     },
                                     // leading: const Icon(Icons.info),
                                     title: const Text(
@@ -225,8 +237,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                         const Icon(Icons.arrow_forward_ios),
                                   ),
                                   const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.0),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16.0),
                                     child: Divider(
                                       thickness: 2.5,
                                       height: 0,
@@ -235,10 +247,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
                                   ListTile(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HelpPage()));
+                                      Navigator.of(context).push(EnterExitRoute(
+                                              // exitPage: this.context.widget,
+                                              enterPage: const HelpPage())
+                                          // MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         const HelpPage())
+                                          );
                                     },
                                     // leading: const Icon(Icons.help),
                                     title: const Text(

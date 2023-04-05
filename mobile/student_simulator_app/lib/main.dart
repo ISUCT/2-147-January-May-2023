@@ -1,14 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:student_simulator/Styles/Colors.dart';
 import 'package:student_simulator/analysisPage.dart';
+import 'package:student_simulator/APIs_draft/apiGuide.dart';
+import 'package:student_simulator/APIs_draft/apiNews.dart';
 import 'package:student_simulator/authPage.dart';
 import 'package:student_simulator/forumsPage.dart';
 
 import 'package:student_simulator/settings.dart';
 import 'package:provider/provider.dart';
 import 'Styles/Themes.dart';
-import 'api/apiGuide.dart';
 import 'guide/guidePage.dart';
 import 'news/newsPage.dart';
 
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         theme: Themes.light,
         darkTheme: Themes.dark,
         debugShowCheckedModeBanner: false,
-        title: 'Student Sumilator',
+        // title: 'Student Sumilator',
         home: const ButtomBar(),
       ),
     );
@@ -47,7 +47,6 @@ List _pages = [
   const ForumsPage(),
   const SettingsPage(),
 ];
-int _currentIndex = 0;
 
 class ButtomBar extends StatefulWidget {
   const ButtomBar({super.key});
@@ -57,53 +56,75 @@ class ButtomBar extends StatefulWidget {
 }
 
 class _ButtomBarState extends State<ButtomBar> {
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-          height: size.height, child: _pages.elementAt(_currentIndex)),
+      body: _pages.elementAt(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         // backgroundColor: appBarColor,
         selectedItemColor: Colors.blue,
         showSelectedLabels: true,
         showUnselectedLabels: false,
-        
+
         // unselectedItemColor: Theme.of(context).appBarTheme.foregroundColor,
         type: BottomNavigationBarType.fixed,
-        
+
         items: [
           BottomNavigationBarItem(
-              activeIcon: const Icon(Icons.home),
-              icon: Icon(Icons.home, ),
+              activeIcon: const Icon(Icons.home_rounded),
+              icon: Icon(
+                Icons.home_outlined,
+              ),
               label: "Главная"),
           BottomNavigationBarItem(
-              activeIcon: const Icon(Icons.quiz),
+              activeIcon: const Icon(Icons.quiz_rounded),
               icon: Icon(
-                Icons.quiz,
-                
+                Icons.quiz_outlined,
               ),
               label: "Гайды"),
           BottomNavigationBarItem(
-              activeIcon: Icon(Icons.analytics),
-              icon: Icon(Icons.analytics,
-                  ),
+              activeIcon: Icon(Icons.analytics_rounded),
+              icon: Icon(
+                Icons.analytics_outlined,
+              ),
               label: "Статистика"),
           BottomNavigationBarItem(
-              activeIcon: const Icon(Icons.message),
-              icon:
-                  Icon(Icons.message, ),
+              activeIcon: const Icon(Icons.message_rounded),
+              icon: Icon(
+                Icons.message_outlined,
+              ),
               label: "Форумы"),
           BottomNavigationBarItem(
               activeIcon: const Icon(Icons.settings),
-              icon: Icon(Icons.settings,
-                  ),
+              icon: Icon(
+                Icons.settings,
+              ),
               label: "Настройки"),
         ],
         currentIndex: _currentIndex,
+
         onTap: (int index) {
           setState(() {
             _currentIndex = index;
+            switch (index) {
+              case 0:
+                setState(() {
+                  // const NewsPage();
+                  // getNews();
+                  // getNewsImage();
+                });
+                // Future<void>.delayed(const Duration(seconds: 1), () {});
+                break;
+              case 1:
+                setState(() {
+                  const GuidePage();
+                  getGuide();
+                });
+                Future<void>.delayed(const Duration(seconds: 1), () {});
+                break;
+            }
           });
         },
       ),

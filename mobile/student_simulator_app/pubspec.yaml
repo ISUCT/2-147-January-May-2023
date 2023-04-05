@@ -29,6 +29,7 @@ dependencies:
   cached_video_player: ^2.0.4
   video_thumbnail: ^0.5.3
   unique_identifier: ^0.3.0
+  # ftpconnect: anyz
 
 dev_dependencies:
   flutter_lints: ^2.0.0

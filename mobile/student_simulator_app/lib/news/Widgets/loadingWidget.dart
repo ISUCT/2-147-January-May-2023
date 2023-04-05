@@ -11,7 +11,7 @@ class LoadingList extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return ListView.builder(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemCount: 5,
         itemBuilder: (context, index) {
           if (index == 0) {
@@ -53,11 +53,11 @@ class LoadingList extends StatelessWidget {
             child: Material(
               color: Theme.of(context).appBarTheme.backgroundColor,
               borderRadius: index == 1
-                  ? BorderRadius.only(
+                  ? const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10))
                   : index == 4
-                      ? BorderRadius.only(
+                      ? const BorderRadius.only(
                           bottomLeft: Radius.circular(10),
                           bottomRight: Radius.circular(10))
                       : BorderRadius.zero,
@@ -85,13 +85,13 @@ class LoadingList extends StatelessWidget {
                     ),
                   ),
                   index != 4
-                      ? Padding(
+                      ? const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 8),
                           child: Divider(
                             thickness: 2.5,
                           ),
                         )
-                      : SizedBox()
+                      : const SizedBox()
                 ],
               ),
             ),

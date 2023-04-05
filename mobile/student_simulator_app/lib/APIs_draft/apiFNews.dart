@@ -1,7 +1,8 @@
 import 'package:http/http.dart' as http;
-
+bool isPostFNews = false;
 Future postFNews(
     String url_f, String type, String news_id, String thumbnail) async {
+      // isPostFNews = false;
   String url = "http://94.154.11.154/api/posts/FNews.php";
   var res = await http.post(Uri.parse(url), body: {
     "url_f": url_f,
@@ -12,10 +13,13 @@ Future postFNews(
   try {
     if (res.statusCode == 201) {
       print("PostFNews: ${res.statusCode.toString()}");
+      isPostFNews = true;
     } else {
+      isPostFNews = false;
       print("Not PostFNews: ${res.statusCode.toString()}");
     }
   } catch (e) {
+    isPostFNews = false;
     print("excep(PostFNews) = $e");
     print("Recorted(PostFNews): ${res.statusCode}");
   }

@@ -1,14 +1,19 @@
+// ignore_for_file: file_names, unused_local_variable, avoid_print, use_build_context_synchronously
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_video_player/cached_video_player.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:student_simulator/api/apiGuide.dart';
+import 'package:student_simulator/APIs_draft/apiGuide.dart';
 import 'package:student_simulator/guide/editorGuides.dart';
 
-import '../data/Users.dart';
+import '../functions/showImage.dart';
+import '../functions/showVideo.dart';
 
+// ignore: camel_case_types
 class detalGuidePage extends StatefulWidget {
   const detalGuidePage(
       {required this.id,
@@ -29,7 +34,29 @@ class detalGuidePage extends StatefulWidget {
   State<detalGuidePage> createState() => _detalGuidePageState();
 }
 
+// ignore: camel_case_types
 class _detalGuidePageState extends State<detalGuidePage> {
+  late CachedVideoPlayerController _controllerVideo;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.url.last != null && widget.url.last!.contains('mp4')) {
+      _controllerVideo = CachedVideoPlayerController.network(widget.url.last!)
+        ..initialize().then((value) {
+          setState(() {
+            _controllerVideo.seekTo(const Duration(seconds: 50));
+          });
+        });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controllerVideo.dispose();
+  }
+
   int activePage = 0;
   final CarouselController _controller = CarouselController();
   @override
@@ -43,7 +70,7 @@ class _detalGuidePageState extends State<detalGuidePage> {
           Row(
             children: [
               IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => EditorGuides(
@@ -54,7 +81,7 @@ class _detalGuidePageState extends State<detalGuidePage> {
                 },
               ),
               IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.red,
                   ),
@@ -64,15 +91,27 @@ class _detalGuidePageState extends State<detalGuidePage> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          title: Text("Подтвердить?"),
+                          title: Text(
+                            "Подтвердить?",
+                            style: TextStyle(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .backgroundColor),
+                          ),
                           content: Text(
-                              "Вы хотите удалить этот гайд навсегда?\nid: ${widget.id}"),
+                              "Вы хотите удалить этот гайд навсегда?\nid: ${widget.id}",
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .backgroundColor)),
                           actions: [
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text("Нет")),
+                                child: const Text("Нет")),
                             TextButton(
                                 onPressed: () async {
                                   setState(() {
@@ -100,7 +139,7 @@ class _detalGuidePageState extends State<detalGuidePage> {
                                   Navigator.pop(context);
                                   Navigator.pop(context);
                                 },
-                                child: Text("Да"))
+                                child: const Text("Да"))
                           ],
                         );
                       },
@@ -120,15 +159,20 @@ class _detalGuidePageState extends State<detalGuidePage> {
           children: [
             Text(
               widget.name!,
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color:
+                      Theme.of(context).textTheme.bodyLarge!.backgroundColor),
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
-              "Опубликована ${DateFormat('HH.mm dd.MM.yyyy').format(widget.time!)}",
-              style: const TextStyle(
-                  color: Colors.grey, fontStyle: FontStyle.italic),
+              "Опубликована ${DateFormat('HH:mm dd.MM.yyyy').format(widget.time!)}",
+              style: TextStyle(
+                  color: Theme.of(context).textTheme.bodySmall!.backgroundColor,
+                  fontStyle: FontStyle.italic),
               textAlign: TextAlign.right,
             ),
             const SizedBox(
@@ -137,12 +181,13 @@ class _detalGuidePageState extends State<detalGuidePage> {
             widget.url.first != null
                 ? Stack(
                     children: [
-                      AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: CarouselSlider.builder(
+                      // AspectRatio(
+                      // aspectRatio: 16 / 9,
+                      CarouselSlider.builder(
                           carouselController: _controller,
                           itemCount: widget.url.length,
                           options: CarouselOptions(
+                              height: 250,
                               enableInfiniteScroll: false,
                               viewportFraction: 1,
                               autoPlay: widget.url.length > 1 ? true : false,
@@ -151,13 +196,45 @@ class _detalGuidePageState extends State<detalGuidePage> {
                                   activePage = index;
                                 });
                               }),
-                          itemBuilder: (context, index, realIndex) =>
-                              CachedNetworkImage(
-                            imageUrl: widget.url[index]!,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
+                          itemBuilder: (context, index, realIndex) => ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => showImage(
+                                              imageURL: widget.url[index]!))),
+                                  child: widget.url[index] != null && (widget.url[index]!.contains('png') || widget.url[index]!.contains('jpg') || widget.url[index]!.contains('images'))
+                                      ? CachedNetworkImage(
+                                          imageUrl: widget.url[index]!,
+                                          // height: 250,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : widget.url[index] != null &&
+                                              widget.url[index]!.contains("mp4")
+                                          ? ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: InkWell(
+                                                onTap: () => Navigator.of(
+                                                        context)
+                                                    .push(MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            showVideo(
+                                                                videoURL: widget
+                                                                        .url[
+                                                                    index]))),
+                                                child: AspectRatio(
+                                                    aspectRatio:
+                                                        _controllerVideo
+                                                            .value.aspectRatio,
+                                                    child: CachedVideoPlayer(
+                                                        _controllerVideo)),
+                                              ),
+                                            )
+                                          : const SizedBox(),
+                                ),
+                              )),
+                      // ),
                       widget.url.length > 1
                           ? Positioned(
                               bottom: 5,
@@ -175,28 +252,8 @@ class _detalGuidePageState extends State<detalGuidePage> {
                                       dotWidth: 6,
                                       dotHeight: 6),
                                 ),
-                              )
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.center,
-                              //   children: widget.url.asMap().entries.map((entry) {
-                              //     return GestureDetector(
-                              //       onTap: () => _controller.animateToPage(entry.key),
-                              //       child: Container(
-                              //         width: 6.0,
-                              //         height: 6.0,
-                              //         margin: EdgeInsets.symmetric(
-                              //             vertical: 8.0, horizontal: 4.0),
-                              //         decoration: BoxDecoration(
-                              //             shape: BoxShape.circle,
-                              //             color: Colors.white
-                              //                 .withOpacity(
-                              //                     activePage == entry.key ? 0.9 : 0.4)),
-                              //       ),
-                              //     );
-                              //   }).toList(),
-                              // ),
-                              )
-                          : SizedBox(),
+                              ))
+                          : const SizedBox(),
                     ],
                   )
                 : const SizedBox(),
@@ -205,7 +262,10 @@ class _detalGuidePageState extends State<detalGuidePage> {
             ),
             Text(
               widget.desc!,
-              style: const TextStyle(fontSize: 18),
+              style: TextStyle(
+                  fontSize: 18,
+                  color:
+                      Theme.of(context).textTheme.bodyLarge!.backgroundColor),
             ),
           ],
         ),

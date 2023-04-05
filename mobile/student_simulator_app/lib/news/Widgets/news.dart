@@ -3,8 +3,6 @@ import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:student_simulator/news/Widgets/newsVideo.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 // import 'package:shimmer/shimmer.dart';
 import '../../components/time.dart';
 import '../detalNewPage.dart';
@@ -18,9 +16,9 @@ class News extends StatefulWidget {
       required this.image,
       required this.time,
       super.key});
-  final int? id;
-  final String? name;
-  final String? desc;
+  final int id;
+  final String name;
+  final String desc;
   final String? image;
   final DateTime time;
 
@@ -46,7 +44,7 @@ class _NewsState extends State<News> {
       _controller = CachedVideoPlayerController.network(widget.image!)
         ..initialize().then((value) {
           setState(() {
-            _controller.seekTo(Duration(seconds: 50));
+            _controller.seekTo(const Duration(seconds: 50));
           });
         });
     }
@@ -55,7 +53,9 @@ class _NewsState extends State<News> {
   @override
   void dispose() {
     super.dispose();
+    if (widget.image != null && widget.image!.contains('mp4')) {
     _controller.dispose();
+    }
   }
 
   @override
@@ -63,9 +63,9 @@ class _NewsState extends State<News> {
     Size size = MediaQuery.of(context).size;
     return CustomListTile(
         route: DetalNewPage(
-          id: widget.id!,
-          name: widget.name!,
-          desc: widget.desc!,
+          id: widget.id,
+          name: widget.name,
+          desc: widget.desc,
           image: widget.image,
           time: widget.time,
         ),
@@ -73,19 +73,31 @@ class _NewsState extends State<News> {
         title: SizedBox(
           width: widget.image != null ? size.width - 200 : null,
           child: Text(
-            widget.name!,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.bodyLarge!.backgroundColor),
+            widget.name,
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).textTheme.bodyLarge!.backgroundColor),
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
           ),
         ),
         subtitle: Row(
           children: [
-            Icon(EvaIcons.clock_outline, size: 20, color: Theme.of(context).textTheme.bodySmall!.backgroundColor,),
-            SizedBox(width: 5,),
+            Icon(
+              EvaIcons.clock_outline,
+              size: 20,
+              color: Theme.of(context).textTheme.bodySmall!.backgroundColor,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
             Text(
               timeToStr(widget.time),
-              style: TextStyle(fontSize: 16, color: Theme.of(context).textTheme.bodySmall!.backgroundColor),
+              style: TextStyle(
+                  fontSize: 16,
+                  color:
+                      Theme.of(context).textTheme.bodySmall!.backgroundColor),
             ),
           ],
         ),
@@ -111,11 +123,15 @@ class _NewsState extends State<News> {
                 ),
               )
             : widget.image != null && widget.image!.contains('mp4')
-                ? Container(
-                    color: Theme.of(context).backgroundColor,
-                    height: 100,
-                    width: 150,
-                    child: CachedVideoPlayer(_controller))
+                ? Stack(children: [
+                    Container(
+                        color: Theme.of(context).backgroundColor,
+                        height: 100,
+                        width: 150,
+                        child: CachedVideoPlayer(_controller)),
+                    Positioned(
+                        bottom: 0, left: 3, child: Icon(BoxIcons.bxs_video, color: Theme.of(context).textTheme.bodySmall!.backgroundColor,))
+                  ])
                 : const SizedBox()
         // subtitle: Text(desc!),
         );

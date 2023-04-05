@@ -56,10 +56,10 @@ class _InfoPageState extends State<InfoPage> {
                           size: 150,
                         ),
                       ),
-                      const Center(
+                      Center(
                           child: Text(
-                        "Student\'s Life",
-                        style: TextStyle(
+                        _appName,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.blue,
                             fontSize: 25),

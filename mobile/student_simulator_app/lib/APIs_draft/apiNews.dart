@@ -1,16 +1,19 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../news/Model/newsModel.dart';
+import '../news/Model/1/newsModel.dart';
 
 List<NewsModel> getResNews = [];
 bool isDataNews = true;
+bool isDataNewsLoading = true;
 Future <List<NewsModel>> getNews() async {
+  isDataNews = true;
   String url = "http://94.154.11.154/api/posts/News.php";
   var res = await http.get(Uri.parse(url));
   try {
     if (res.statusCode == 200) {
       // var response = jsonDecode(res.body);
       isDataNews = false;
+      isDataNewsLoading = false;
       // List<NewsModel> tempList = [];
       getResNews = newsModelFromJson(res.body);
       // for(var v in getResNews){
@@ -19,16 +22,19 @@ Future <List<NewsModel>> getNews() async {
       // getResNews = response as List;
       // print("getNews: ${getResNews[0].id}");
       print("getNews: ${res.statusCode}");
+      print("resNews: ${getResNews.first.toJson()}");
       // return NewsModel.newsSnapshot(tempList).toList();
       return getResNews;
     } else {
       isDataNews = true;
+      isDataNewsLoading = true;
       print("Not getNews");
       // return [];
       return [];
     }
   } catch (e) {
     isDataNews = true;
+    isDataNewsLoading = true;
     print("excep(getNews) = $e");
     print("Recorted(getNews): ${res.statusCode}");
     // return [];
@@ -58,8 +64,9 @@ Future getNewsImage() async {
     print("Recorted(getNewsImage): ${res.statusCode}");
   }
 }
-
+bool isPostNews = false;
 Future postNews(String name, String desc) async {
+  isPostNews = false;
   String url = "http://94.154.11.154/api/posts/News.php";
   var res = await http.post(Uri.parse(url), body: {
     "name_n": name,
@@ -68,11 +75,14 @@ Future postNews(String name, String desc) async {
   });
   try {
     if (res.statusCode == 201) {
+      isPostNews = true;
       print("PostNews: ${res.statusCode.toString()}");
     } else {
+      isPostNews = false;
       print("Not PostNews: ${res.statusCode.toString()}");
     }
   } catch (e) {
+    isPostNews = false;
     print("excep(PostNews) = $e");
     print("Recorted(PostNews): ${res.statusCode}");
   }

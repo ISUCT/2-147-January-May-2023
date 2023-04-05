@@ -1,10 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_video_player/cached_video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:student_simulator/api/apiNews.dart';
+import 'package:student_simulator/APIs_draft/apiNews.dart';
+import 'package:student_simulator/functions/showImage.dart';
+import 'package:student_simulator/functions/showVideo.dart';
 import 'package:student_simulator/news/editorNews.dart';
 
 import '../data/Users.dart';
@@ -28,6 +31,29 @@ class DetalNewPage extends StatefulWidget {
 }
 
 class _DetalNewPageState extends State<DetalNewPage> {
+  late CachedVideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.image != null && widget.image!.contains('mp4')) {
+      _controller = CachedVideoPlayerController.network(widget.image!)
+        ..initialize().then((value) {
+          setState(() {
+            _controller.seekTo(const Duration(seconds: 50));
+          });
+        });
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (widget.image != null && widget.image!.contains('mp4')) {
+      _controller.dispose();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +71,7 @@ class _DetalNewPageState extends State<DetalNewPage> {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.edit),
+                  icon: const Icon(Icons.edit),
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EditorNews(
@@ -56,7 +82,7 @@ class _DetalNewPageState extends State<DetalNewPage> {
                   },
                 ),
                 IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.delete,
                       color: Colors.red,
                     ),
@@ -66,7 +92,7 @@ class _DetalNewPageState extends State<DetalNewPage> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Подтвердить?"),
+                            title: const Text("Подтвердить?"),
                             content: Text(
                                 "Вы хотите удалить эту новость навсегда?\nid: ${widget.id}"),
                             actions: [
@@ -74,7 +100,7 @@ class _DetalNewPageState extends State<DetalNewPage> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text("Нет")),
+                                  child: const Text("Нет")),
                               TextButton(
                                   onPressed: () async {
                                     setState(() {
@@ -98,7 +124,7 @@ class _DetalNewPageState extends State<DetalNewPage> {
                                     Navigator.pop(context);
                                     Navigator.pop(context);
                                   },
-                                  child: Text("Да"))
+                                  child: const Text("Да"))
                             ],
                           );
                         },
@@ -139,18 +165,42 @@ class _DetalNewPageState extends State<DetalNewPage> {
               const SizedBox(
                 height: 10,
               ),
-              widget.image != null
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.image!,
-                        height: 250,
-                        fit: BoxFit.cover,
+              widget.image != null &&
+                      (widget.image!.contains("png") ||
+                          widget.image!.contains("jpg"))
+                  ? AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: InkWell(
+                          onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      showImage(imageURL: widget.image))),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.image!,
+                            // height: 250,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     )
-                  : const SizedBox(),
+                  : widget.image != null && widget.image!.contains("mp4")
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: InkWell(
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        showVideo(videoURL: widget.image))),
+                            child: AspectRatio(
+                                aspectRatio: _controller.value.aspectRatio,
+                                child: CachedVideoPlayer(_controller)),
+                          ),
+                        )
+                      : const SizedBox(),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Text(
                 widget.desc,

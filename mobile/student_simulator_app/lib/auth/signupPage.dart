@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 import '../data/Users.dart';
 import '../main.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
+  var controllerLog = new TextEditingController();
+    var controllerPass = new TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var controllerLog = new TextEditingController();
-    var controllerPass = new TextEditingController();
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SafeArea(
           child: Center(
@@ -24,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
-                  "Вход",
+                  "Регистрация",
                   style: TextStyle(fontSize: 40),
                 ),
                 Column(
@@ -93,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                                       return runApp(const MyApp());
                                     });
                                   },
-                                  child: const Text("Войти")))
+                                  child: const Text("Зарегистрироваться")))
                         ],
                       ),
                     ),

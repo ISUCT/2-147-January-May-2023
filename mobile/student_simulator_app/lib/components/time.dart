@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 String timeToStr(DateTime time) {
   String toStrTime = '';
   // print ("time: ${DateTime.now()}");
-  if (DateTime.now().year >= time.year) {
-    if (DateTime.now().month >= time.month) {
+  if (DateTime.now().year == time.year) {
+    if (DateTime.now().month == time.month) {
       if (DateTime.now().day == time.day) {
         if (DateTime.now().hour == time.hour) {
           if (DateTime.now().minute == time.minute) {

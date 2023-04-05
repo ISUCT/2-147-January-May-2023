@@ -4,12 +4,15 @@ import 'package:provider/provider.dart';
 import '../../Styles/Themes.dart';
 import '../../settings.dart';
 
+dynamic isDarked = 0;
+
 class ThemePage extends StatelessWidget {
   const ThemePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     var brightness = Theme.of(context).brightness;
+    final themeChanger = Provider.of<ThemeProvider>(context);
     // _switch() async {
     //   if (brightness.name == ThemeMode.light.name) {
     //     isDarked = 2;
@@ -39,29 +42,19 @@ class ThemePage extends StatelessWidget {
               color: Theme.of(context).appBarTheme.backgroundColor,
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ListTile(
-                  title: const Text("Авто (по умолчанию)"),
-                  trailing: Radio(
-                      // overlayColor: MaterialStateColor.resolveWith(
-                      //     (states) => Colors.blue),
-                      // hoverColor: MaterialStateColor.resolveWith(
-                      //     (states) => Colors.blue),
-                      fillColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.blue),
-                      focusColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.blue),
-                      value: 0,
-                      groupValue: isDarked,
-                      onChanged: (value) {
-                        final provider =
-                            Provider.of<ThemeProvider>(context, listen: false);
-
-                        provider.toggleTheme(value);
-                        isDarked = value;
-                        // brightness.name == ThemeMode.dark.name
-                        //     ? ThemeMode.dark
-                        //     : ThemeMode.light;
-                      }),
-                ),
+                    title: const Text("Авто (по умолчанию)"),
+                    trailing: Radio(
+                        // overlayColor: MaterialStateColor.resolveWith(
+                        //     (states) => Colors.blue),
+                        // hoverColor: MaterialStateColor.resolveWith(
+                        //     (states) => Colors.blue),
+                        fillColor: MaterialStateColor.resolveWith(
+                            (states) => Colors.blue),
+                        focusColor: MaterialStateColor.resolveWith(
+                            (states) => Colors.blue),
+                        value: ThemeMode.system,
+                        groupValue: themeChanger.themeMode,
+                        onChanged: themeChanger.toggleTheme)),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Divider(
@@ -71,25 +64,15 @@ class ThemePage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: const Text("Светлый режим"),
-                  trailing: Radio(
-                      fillColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.blue),
-                      focusColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.blue),
-                      value: 1,
-                      groupValue: isDarked,
-                      onChanged: (value) {
-                        final provider =
-                            Provider.of<ThemeProvider>(context, listen: false);
-
-                        provider.toggleTheme(value);
-                        isDarked = value;
-                        // brightness.name == ThemeMode.dark.name
-                        //     ? ThemeMode.dark
-                        //     : ThemeMode.light;
-                      }),
-                ),
+                    title: const Text("Светлый режим"),
+                    trailing: Radio(
+                        fillColor: MaterialStateColor.resolveWith(
+                            (states) => Colors.blue),
+                        focusColor: MaterialStateColor.resolveWith(
+                            (states) => Colors.blue),
+                        value: ThemeMode.light,
+                        groupValue: themeChanger.themeMode,
+                        onChanged: themeChanger.toggleTheme)),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Divider(
@@ -99,25 +82,15 @@ class ThemePage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: const Text("Темный режим"),
-                  trailing: Radio(
-                      fillColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.blue),
-                      focusColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.blue),
-                      value: 2,
-                      groupValue: isDarked,
-                      onChanged: (value) {
-                        final provider =
-                            Provider.of<ThemeProvider>(context, listen: false);
-
-                        provider.toggleTheme(value);
-                        isDarked = value;
-                        // brightness.name == ThemeMode.dark.name
-                        //     ? ThemeMode.dark
-                        //     : ThemeMode.light;
-                      }),
-                ),
+                    title: const Text("Темный режим"),
+                    trailing: Radio(
+                        fillColor: MaterialStateColor.resolveWith(
+                            (states) => Colors.blue),
+                        focusColor: MaterialStateColor.resolveWith(
+                            (states) => Colors.blue),
+                        value: ThemeMode.dark,
+                        groupValue: themeChanger.themeMode,
+                        onChanged: themeChanger.toggleTheme)),
               ]),
             ),
           ),

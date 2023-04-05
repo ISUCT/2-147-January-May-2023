@@ -1,6 +1,9 @@
 import 'package:http/http.dart' as http;
 
-Future postFGuide(String url_f, String type, String guide_id, String thumbnail) async {
+bool isPostFGuide = false;
+Future postFGuide(
+    String url_f, String type, String guide_id, String thumbnail) async {
+  // isPostFGuide = false;
   String url = "http://94.154.11.154/api/posts/FGuide.php";
   var res = await http.post(Uri.parse(url), body: {
     "url_f": url_f,
@@ -10,11 +13,14 @@ Future postFGuide(String url_f, String type, String guide_id, String thumbnail) 
   });
   try {
     if (res.statusCode == 201) {
+      isPostFGuide = true;
       print("PostFGuide: ${res.statusCode.toString()}");
     } else {
+      isPostFGuide = false;
       print("Not PostFGuide: ${res.statusCode.toString()}");
     }
-  } catch (e) {    
+  } catch (e) {
+    isPostFGuide = false;
     print("excep(PostFGuide) = $e");
     print("Recorted(PostFGuide): ${res.statusCode}");
   }
@@ -22,10 +28,8 @@ Future postFGuide(String url_f, String type, String guide_id, String thumbnail) 
 
 Future deleteFGuide(int id) async {
   String url = "http://94.154.11.154/api/posts/deleteFGuide.php";
-  var res = await http.post(Uri.parse(url), body: {
-    'id': id    
-  });
-  try {  
+  var res = await http.post(Uri.parse(url), body: {'id': id});
+  try {
     if (res.statusCode == 202) {
       print("deleteFGuide: ${res.statusCode.toString()}");
     } else {
@@ -39,11 +43,8 @@ Future deleteFGuide(int id) async {
 
 Future updateFGuide(String id, String url_f, String thumbnail) async {
   String url = "http://94.154.11.154/api/posts/updateFGuide.php";
-  var res = await http.post(Uri.parse(url), body: {
-    "id": id,
-    "url_f": url_f,
-    "thumbnail": thumbnail
-  });
+  var res = await http.post(Uri.parse(url),
+      body: {"id": id, "url_f": url_f, "thumbnail": thumbnail});
   try {
     if (res.statusCode == 202) {
       print("updateFGuide: ${res.statusCode.toString()}");

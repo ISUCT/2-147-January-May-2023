@@ -8,6 +8,7 @@ var getResGuide;
 var response;
 bool isData = false;
 Future getGuide() async {
+  // isData = false;
   String url = "http://94.154.11.154/api/posts/Guide.php";
   var res = await http.get(Uri.parse(url));
   try {
@@ -28,6 +29,7 @@ Future getGuide() async {
   }
 }
 
+bool isPostGuide = false;
 Future postGuide(String name, String desc) async {
   String url = "http://94.154.11.154/api/posts/Guide.php";
   var res = await http.post(Uri.parse(url), body: {
@@ -36,11 +38,14 @@ Future postGuide(String name, String desc) async {
   });
   try {
     if (res.statusCode == 201) {
+      isPostGuide = true;
       print("PostGuide: ${res.statusCode.toString()}");
     } else {
+      isPostGuide = false;
       print("Not PostGuide: ${res.statusCode.toString()}");
     }
   } catch (e) {
+    isPostGuide = false;
     print("excep(PostGuide) = $e");
     print("Recorted(PostGuide): ${res.statusCode}");
   }

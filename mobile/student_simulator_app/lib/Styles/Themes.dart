@@ -66,6 +66,7 @@ class Themes {
       }),
       trackColor: MaterialStateProperty.all(Colors.blue.withOpacity(0.2)),
     ),
+        dialogTheme: DialogTheme(titleTextStyle: TextStyle(color: textColorDark, fontSize: 25, fontWeight: FontWeight.bold)),
   );
 
 
@@ -90,6 +91,7 @@ class Themes {
         bodySmall: TextStyle(backgroundColor: subColor)),
     backgroundColor: backgroundColor,
     dialogBackgroundColor: backgroundColor,
+    dialogTheme: DialogTheme(titleTextStyle: TextStyle(color: textColor, fontSize: 25, fontWeight: FontWeight.bold)),
     // colorSchemeSeed: Colors.black,
     // colorScheme: ColorScheme(
     //   brightness: Brightness.light,
@@ -135,11 +137,13 @@ class Themes {
   );
 }
 
-class ThemeProvider extends ChangeNotifier {
-  ThemeMode themeMode = ThemeMode.system;
-  bool get isDarkMode => themeMode == ThemeMode.dark;
-  void toggleTheme(dynamic isOn) {
-    themeMode = isOn == 2 ? ThemeMode.dark : isOn == 1 ? ThemeMode.light : ThemeMode.system;
+class ThemeProvider with ChangeNotifier {
+  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode get themeMode => _themeMode;
+  // bool get isDarkMode => themeMode == ThemeMode.dark;
+  void toggleTheme(themeMode) {
+    // themeMode = isOn == 2 ? ThemeMode.dark : isOn == 1 ? ThemeMode.light : ThemeMode.system;
+    _themeMode = themeMode;
     notifyListeners();
   }
   // bool isOn = false;

@@ -5,12 +5,15 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:student_simulator/api/apiFNews.dart';
-import 'package:student_simulator/api/apiNews.dart';
-import 'package:student_simulator/news/Model/newsModel.dart';
+import 'package:student_simulator/APIs_draft/apiFNews.dart';
+import 'package:student_simulator/APIs_draft/apiNews.dart';
+import 'package:student_simulator/news/Model/1/newsModel.dart';
 import 'package:student_simulator/news/newsPage.dart';
 import 'package:video_player/video_player.dart';
 import 'package:uuid/uuid.dart';
+
+import '../data/textNews.dart';
+import '../functions/showImage.dart';
 
 class EditorNews extends StatefulWidget {
   const EditorNews(
@@ -28,8 +31,7 @@ class EditorNews extends StatefulWidget {
 }
 
 class _EditorNewsState extends State<EditorNews> {
-  TextEditingController controllerName = new TextEditingController();
-  TextEditingController controllerdesc = new TextEditingController();
+  bool isLoading = false;
 
   late CachedVideoPlayerController _controller;
   @override
@@ -172,46 +174,54 @@ class _EditorNewsState extends State<EditorNews> {
                               child: Row(
                                 children: [
                                   isImage
-                                      ? ClipRRect(
-                                          clipBehavior:
-                                              Clip.antiAliasWithSaveLayer,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Stack(
-                                            children: [
-                                              SizedBox(
-                                                  height: 100,
-                                                  width: 150,
-                                                  child: Image.file(
-                                                    imageFile!,
-                                                    fit: BoxFit.cover,
-                                                  )),
-                                              Positioned(
-                                                left: 4,
-                                                bottom: 0,
-                                                child: Icon(
-                                                  BoxIcons.bx_image,
-                                                  color: Colors.blue,
-                                                ),
-                                              ),
-                                              Positioned(
-                                                right: 4,
-                                                top: 0,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      isImage = false;
-                                                    });
-                                                  },
-                                                  child: Icon(
-                                                    Icons.close,
-                                                    color: Colors.red,
+                                      ? InkWell(
+                                          onTap: () => Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      showImage(
+                                                          imageFile:
+                                                              imageFile))),
+                                          child: ClipRRect(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Stack(
+                                                children: [
+                                                  SizedBox(
+                                                      height: 100,
+                                                      width: 150,
+                                                      child: Image.file(
+                                                        imageFile!,
+                                                        fit: BoxFit.cover,
+                                                      )),
+                                                  const Positioned(
+                                                    left: 4,
+                                                    bottom: 0,
+                                                    child: Icon(
+                                                      BoxIcons.bx_image,
+                                                      color: Colors.blue,
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                            ],
-                                          ))
-                                      : SizedBox(),
+                                                  Positioned(
+                                                    right: 4,
+                                                    top: 0,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          isImage = false;
+                                                        });
+                                                      },
+                                                      child: const Icon(
+                                                        Icons.close,
+                                                        color: Colors.red,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )),
+                                        )
+                                      : const SizedBox(),
                                   const SizedBox(
                                     width: 10,
                                   ),
@@ -235,7 +245,7 @@ class _EditorNewsState extends State<EditorNews> {
                                                   ),
                                                 ),
                                               ),
-                                              Positioned(
+                                              const Positioned(
                                                 left: 4,
                                                 bottom: 0,
                                                 child: Icon(
@@ -252,7 +262,7 @@ class _EditorNewsState extends State<EditorNews> {
                                                       isVideo = false;
                                                     });
                                                   },
-                                                  child: Icon(
+                                                  child: const Icon(
                                                     Icons.close,
                                                     color: Colors.red,
                                                   ),
@@ -260,7 +270,7 @@ class _EditorNewsState extends State<EditorNews> {
                                               )
                                             ],
                                           ))
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ],
                               ),
                             ),
@@ -275,50 +285,88 @@ class _EditorNewsState extends State<EditorNews> {
                   SizedBox(
                     height: 50,
                     width: size.width,
+                    // color: Colors.amber,
                     child: ElevatedButton(
-                        onPressed: () async {
-                          if (EditorNews._formKey.currentState!.validate()) {
-                            if (widget.id == null) {
-                              postNews(
-                                  controllerName.text, controllerdesc.text);
+                        autofocus: true,
+                        onPressed: isLoading
+                            ? null
+                            : () {
+                                if (EditorNews._formKey.currentState!
+                                    .validate()) {
+                                  if (widget.id == null) {
+                                    // FocusScope.of(context).requestFocus(FocusNode());
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
+                                    postNews(controllerName.text,
+                                        controllerdesc.text);
+                                    setState(() {
+                                      // getNews();
+                                      isLoading = true;
+                                    });
+                                    Future<void>.delayed(
+                                        const Duration(seconds: 2), () {});
 
-                              await Future<void>.delayed(
-                                  const Duration(seconds: 3), () {});
-                              // setState(() {
-                              //   getNews();
-                              // });
-                              await Future<void>.delayed(
-                                  const Duration(seconds: 1), () {});
-                              setState(() {
-                                getNews();
-                              });
-                              print("Successed");
-                              if (isImage) {
-                                sendImage(getResNews[0].id.toString()); // Тут должна быть отправка изображени по 
-                              }
-                              if (isVideo) {
-                                sendVideo(getResNews[0].id.toString());
-                              }
-
-                              Navigator.of(context).pop();
-                            } else {
-                              updateNew(widget.id!, controllerName.text,
-                                  controllerdesc.text);
-                              await Future<void>.delayed(
-                                  const Duration(seconds: 3), () {});
-                              // setState(() {
-                              //   getNews();
-                              // });
-                              await Future<void>.delayed(
-                                  const Duration(seconds: 1), () {});
-                              print("Updated");
-                              Navigator.of(context).pop();
-                            }
-                          }
-                        },
-                        child: const Text("Сохранить"),
+                                    setState(() {
+                                      getNews();
+                                    });
+                                    Future<void>.delayed(
+                                        const Duration(seconds: 3), () {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    });
+                                    print("Successed");
+                                    if (isImage) {
+                                      sendImage(getResNews.first.id
+                                          .toString()); // Тут должна быть отправка изображени по
+                                    }
+                                    if (isVideo) {
+                                      sendVideo(getResNews.first.id.toString());
+                                    }
+                                    if (!isPostNews) {
+                                      controllerName.clear();
+                                      controllerdesc.clear();
+                                      Navigator.of(context).pop();
+                                    } else {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                title: Text("Ошибка"),
+                                                content: Text(
+                                                    "Не удалось добавить новость, проверьте на правильность заполнения нового гайда."),
+                                              ));
+                                    }
+                                  } else {
+                                    updateNew(widget.id!, controllerName.text,
+                                        controllerdesc.text);
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    Future<void>.delayed(
+                                        const Duration(seconds: 2), () {});
+                                    setState(() {
+                                      getNews();
+                                    });
+                                    Future<void>.delayed(
+                                        const Duration(seconds: 3), () {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    });
+                                    print("Updated");
+                                    Navigator.of(context).pop();
+                                  }
+                                }
+                              },
+                        child: isLoading
+                            ? CircularProgressIndicator(
+                                // color: Colors.amber,
+                                )
+                            : Text("Сохранить"),
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue)),
+                            backgroundColor: Colors.blue,
+                            disabledBackgroundColor:
+                                Theme.of(context).appBarTheme.backgroundColor)),
                   )
                 ],
               ),

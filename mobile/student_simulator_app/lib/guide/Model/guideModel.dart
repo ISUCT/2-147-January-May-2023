@@ -2,7 +2,7 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-import 'package:student_simulator/api/apiGuide.dart';
+import 'package:student_simulator/APIs_draft/apiGuide.dart';
 
 List<GuideModel> guides = [];
 Map<String, GuideModel> guideModelFromJson(String str) =>

@@ -5,9 +5,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:student_simulator/api/apiFGuide.dart';
-import 'package:student_simulator/api/apiGuide.dart';
+import 'package:student_simulator/APIs_draft/apiFGuide.dart';
+import 'package:student_simulator/APIs_draft/apiGuide.dart';
+import 'package:student_simulator/guide/Model/guideModel.dart';
 import 'package:uuid/uuid.dart';
+
+import '../data/textGuide.dart';
+import '../functions/showImage.dart';
 
 class EditorGuides extends StatefulWidget {
   const EditorGuides(
@@ -25,8 +29,7 @@ class EditorGuides extends StatefulWidget {
 }
 
 class _EditorGuidesState extends State<EditorGuides> {
-  TextEditingController controllerName = new TextEditingController();
-  TextEditingController controllerdesc = new TextEditingController();
+  bool isLoading = false;
 
   late CachedVideoPlayerController _controller;
   @override
@@ -169,45 +172,53 @@ class _EditorGuidesState extends State<EditorGuides> {
                               child: Row(
                                 children: [
                                   isImage
-                                      ? ClipRRect(
-                                          clipBehavior:
-                                              Clip.antiAliasWithSaveLayer,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Stack(
-                                            children: [
-                                              SizedBox(
-                                                  height: 100,
-                                                  width: 150,
-                                                  child: Image.file(
-                                                    imageFile!,
-                                                    fit: BoxFit.cover,
-                                                  )),
-                                              const Positioned(
-                                                left: 4,
-                                                bottom: 0,
-                                                child: Icon(
-                                                  BoxIcons.bx_image,
-                                                  color: Colors.blue,
-                                                ),
-                                              ),
-                                              Positioned(
-                                                right: 4,
-                                                top: 0,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      isImage = false;
-                                                    });
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.close,
-                                                    color: Colors.red,
+                                      ? InkWell(
+                                          onTap: () => Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      showImage(
+                                                          imageFile:
+                                                              imageFile))),
+                                          child: ClipRRect(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Stack(
+                                                children: [
+                                                  SizedBox(
+                                                      height: 100,
+                                                      width: 150,
+                                                      child: Image.file(
+                                                        imageFile!,
+                                                        fit: BoxFit.cover,
+                                                      )),
+                                                  const Positioned(
+                                                    left: 4,
+                                                    bottom: 0,
+                                                    child: Icon(
+                                                      BoxIcons.bx_image,
+                                                      color: Colors.blue,
+                                                    ),
                                                   ),
-                                                ),
-                                              )
-                                            ],
-                                          ))
+                                                  Positioned(
+                                                    right: 4,
+                                                    top: 0,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          isImage = false;
+                                                        });
+                                                      },
+                                                      child: const Icon(
+                                                        Icons.close,
+                                                        color: Colors.red,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )),
+                                        )
                                       : const SizedBox(),
                                   const SizedBox(
                                     width: 10,
@@ -273,49 +284,83 @@ class _EditorGuidesState extends State<EditorGuides> {
                     height: 50,
                     width: size.width,
                     child: ElevatedButton(
-                        onPressed: () async {
-                          if (EditorGuides._formKey.currentState!.validate()) {
-                            if (widget.id == null) {
-                              postGuide(
-                                  controllerName.text, controllerdesc.text);
-
-                              await Future<void>.delayed(
-                                  const Duration(seconds: 3), () {});
-                              // setState(() {
-                              //   getGuide();
-                              // });
-                              await Future<void>.delayed(
-                                  const Duration(seconds: 1), () {});
-                              setState(() {
-                                getGuide();
-                              });
-                              print("Successed");
-                              if (isImage) {
-                                sendImage(getResGuide[0].id.toString()); // Тут должна быть отправка изображени по 
-                              }
-                              if (isVideo) {
-                                sendVideo(getResGuide[0].id.toString());
-                              }
-
-                              Navigator.of(context).pop();
-                            } else {
-                              updateGuide(widget.id!, controllerName.text,
-                                  controllerdesc.text);
-                              await Future<void>.delayed(
-                                  const Duration(seconds: 3), () {});
-                              // setState(() {
-                              //   getGuide();
-                              // });
-                              await Future<void>.delayed(
-                                  const Duration(seconds: 1), () {});
-                              print("Updated");
-                              Navigator.of(context).pop();
-                            }
-                          }
-                        },
-                        child: const Text("Сохранить"),
+                        onPressed: isLoading
+                            ? null
+                            : () async {
+                                if (EditorGuides._formKey.currentState!
+                                    .validate()) {
+                                  if (widget.id == null) {
+                                    FocusManager.instance.primaryFocus
+                                        ?.unfocus();
+                                    postGuide(controllerName.text,
+                                        controllerdesc.text);
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    await Future<void>.delayed(
+                                        const Duration(seconds: 2), () {});
+                                    setState(() {
+                                      getGuide();
+                                    });
+                                    await Future<void>.delayed(
+                                        const Duration(seconds: 3), () {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    });
+                                    print("Successed");
+                                    print("ID guide: ${guides.first.id}");
+                                    if (isImage) {
+                                      sendImage(guides.first.id
+                                          .toString()); // Тут должна быть отправка изображени по
+                                    }
+                                    if (isVideo) {
+                                      sendVideo(guides.first.id.toString());
+                                    }
+                                    if (isPostGuide) {
+                                      controllerName.clear();
+                                      controllerdesc.clear();
+                                      Navigator.of(context).pop();
+                                    } else {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => const AlertDialog(
+                                                title: Text("Ошибка"),
+                                                content: Text(
+                                                    "Не удалось добавить новый гайд, проверьте на правильность заполнения нового гайда."),
+                                              ));
+                                    }
+                                  } else {
+                                    updateGuide(widget.id!, controllerName.text,
+                                        controllerdesc.text);
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    await Future<void>.delayed(
+                                        const Duration(seconds: 2), () {});
+                                    setState(() {
+                                      getGuide();
+                                    });
+                                    await Future<void>.delayed(
+                                        const Duration(seconds: 3), () {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    });
+                                    print("Updated");
+                                    Navigator.of(context).pop();
+                                  }
+                                }
+                              },
+                        child: isLoading
+                            ? CircularProgressIndicator(
+                                // color: Colors.amber,
+                                )
+                            : Text("Сохранить"),
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue)),
+                            backgroundColor: Colors.blue,
+                            disabledBackgroundColor:
+                                Theme.of(context).appBarTheme.backgroundColor)),
                   )
                 ],
               ),
@@ -338,6 +383,8 @@ class _EditorGuidesState extends State<EditorGuides> {
           fileNameI = xFileNameI!.split("image_picker").last;
           isImage = true;
         });
+      } else {
+        getImage();
       }
     });
   }
@@ -362,6 +409,8 @@ class _EditorGuidesState extends State<EditorGuides> {
               });
             });
         });
+      } else {
+        getVideo();
       }
     });
   }
@@ -375,6 +424,7 @@ class _EditorGuidesState extends State<EditorGuides> {
     var uploadTask = await img.putFile(imageFile!).catchError((error) async {
       status = 0;
     });
+    print("Problem: $uploadTask");
     if (status == 1) {
       String imageUrl = await uploadTask.ref.getDownloadURL();
       if (isVideo) {
