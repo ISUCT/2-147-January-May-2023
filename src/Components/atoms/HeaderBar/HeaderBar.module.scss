@@ -1,0 +1,22 @@
+.HeaderBar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #000000b4;
+    border-radius: 25px;
+    color: white;
+    position: absolute;
+    top: 0;
+    margin: 10px;
+    max-width: 1900px;
+    z-index: 100;
+}
+
+.FontsPosition{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    min-height: 50px;
+    padding: 0px 40px;
+}

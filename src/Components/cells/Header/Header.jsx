@@ -1,15 +1,15 @@
 import React from "react";
-import "./Header.scss";
-import {HeaderLink, LogoInformations, SeekFooter} from'../../molecules/index'
+import student from "../../../Public/Img/Student.png"
+import styles from './Header.module.scss'
+import { HeaderBar } from "../../atoms/HeaderBar";
+import { HeaderFooter } from "../../atoms/HeaderFooter/HeaderFooter";
 
-export const Header = () => {
-    return (
-        <header className="header">
-            <div className="headerWiwe">
-                <HeaderLink />
-                <LogoInformations />
-                <SeekFooter />
-            </div>
-        </header>
-    )
-}
+export let Header = (props) =>{
+    return(
+        <div className={styles.Header}>
+            <HeaderBar />
+            <HeaderFooter />
+            <img src={student} />
+        </div>
+    );
+} 

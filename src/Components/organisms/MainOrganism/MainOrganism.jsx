@@ -1,16 +1,10 @@
 import React from "react";
-import {Header, Border, Forum} from "../../cells/"
-
-import "../../templates/tamplateMainPage.scss"
+import FlexContainer from "../../common/FlexContainer/FlexContainer";
 
 export let MainOrganism = () => {
     return(
-        <div className="wrapper">
-            <Header />
-            <Border />
-            <div className='wrapper-content'>
-                <Forum />
-            </div>
-        </div>
+        <FlexContainer >
+
+        </FlexContainer>
     )
 } 
