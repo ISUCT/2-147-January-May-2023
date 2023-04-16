@@ -1,14 +1,16 @@
 .HeaderBar{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
-    background-color: #34342C;
-    border-radius: 0px 0px 25px 25px;
+    background-color: #000000b4;
+    border-radius: 25px;
     color: white;
     position: absolute;
+    top: 0;
+    margin: 10px;
+    max-width: 1900px;
     z-index: 100;
-    margin-top: 255px;
-    max-width: 1920px;
 }
 
 .FontsPosition{
