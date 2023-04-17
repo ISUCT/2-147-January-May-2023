@@ -1,14 +1,19 @@
 // ignore_for_file: file_names
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:student_simulator/APIs_draft/apiNews.dart';
 import 'package:student_simulator/functions/showImage.dart';
 import 'package:student_simulator/functions/showVideo.dart';
 import 'package:student_simulator/news/editorNews.dart';
+import 'package:http/http.dart' as http;
 
 import '../data/Users.dart';
 
@@ -54,6 +59,27 @@ class _DetalNewPageState extends State<DetalNewPage> {
     }
   }
 
+  share(BuildContext context) async {
+    // final RenderBox box = context.findRenderObject();
+    final box = context.findRenderObject() as RenderBox?;
+    if (widget.image != null) {
+      final uri = Uri.parse(widget.image!);
+      final res = await http.get(uri);
+      final bytes = res.bodyBytes;
+      final temp = await getTemporaryDirectory();
+      final path = '${temp.path}/image.jpg';
+      File(path).writeAsBytesSync(bytes);
+      Share.shareXFiles([XFile(path)],
+          text: "${widget.name}\n${widget.desc}",
+          subject: "Новость №${widget.id} из игры Student's Life");
+    } else {
+      Share.share("${widget.name}\n${widget.desc}",
+          subject: "Новость №${widget.id} из игры Student's Life");
+    }
+    sharePositionOrigin:
+    box!.localToGlobal(Offset.zero) & box.size;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +93,10 @@ class _DetalNewPageState extends State<DetalNewPage> {
         // ),
         title: const Text("Описание новости"),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () => share(context),
+          ),
           if (users[index_user].status == "admin")
             Row(
               children: [

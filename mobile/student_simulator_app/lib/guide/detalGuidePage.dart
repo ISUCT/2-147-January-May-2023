@@ -1,15 +1,19 @@
 // ignore_for_file: file_names, unused_local_variable, avoid_print, use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_video_player/cached_video_player.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:student_simulator/APIs_draft/apiGuide.dart';
 import 'package:student_simulator/guide/editorGuides.dart';
-
+import 'package:http/http.dart' as http;
 import '../functions/showImage.dart';
 import '../functions/showVideo.dart';
 
@@ -57,6 +61,25 @@ class _detalGuidePageState extends State<detalGuidePage> {
     _controllerVideo.dispose();
   }
 
+  share(BuildContext context) async {
+    // final RenderBox box = context.findRenderObject();
+    final box = context.findRenderObject() as RenderBox?;
+    if (widget.url.first != null) {
+      final uri = Uri.parse(widget.url.first!);
+      final res = await http.get(uri);
+      final bytes = res.bodyBytes;
+      final temp = await getTemporaryDirectory();
+      final path = '${temp.path}/image.jpg';
+      File(path).writeAsBytesSync(bytes);
+      Share.shareXFiles([XFile(path)],
+          text: "${widget.name}\n${widget.desc}", subject: "Гайд №${widget.id} из игры Student's Life");
+    } else {
+      Share.share("${widget.name}\n${widget.desc}", subject: "Гайд №${widget.id} из игры Student's Life");
+    }
+    sharePositionOrigin:
+    box!.localToGlobal(Offset.zero) & box.size;
+  }
+
   int activePage = 0;
   final CarouselController _controller = CarouselController();
   @override
@@ -66,92 +89,94 @@ class _detalGuidePageState extends State<detalGuidePage> {
         elevation: 0,
         title: const Text("Подробности"),
         actions: [
-          // if (users[index_user].status == "admin")
-          Row(
-            children: [
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => EditorGuides(
-                            id: widget.id.toString(),
-                            name: widget.name,
-                            desc: widget.desc,
-                          )));
-                },
-              ),
-              IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  onPressed: () {
-                    bool isChecked = false;
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text(
-                            "Подтвердить?",
-                            style: TextStyle(
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .backgroundColor),
-                          ),
-                          content: Text(
-                              "Вы хотите удалить этот гайд навсегда?\nid: ${widget.id}",
-                              style: TextStyle(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .backgroundColor)),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("Нет")),
-                            TextButton(
-                                onPressed: () async {
-                                  setState(() {
-                                    deleteGuide(widget.id.toString());
-                                    if (widget.url[0] != null) {
-                                      for (int i = 0;
-                                          i < widget.url.length;
-                                          i++) {
-                                        try {
-                                          FirebaseStorage.instance
-                                              .refFromURL(widget.url[i]!)
-                                              .delete();
-                                        } catch (e) {
-                                          print("exp: $e");
-                                        }
-                                      }
-                                    }
-                                  });
-
-                                  // getNews();
-                                  await Future<void>.delayed(
-                                      const Duration(seconds: 3), () {
-                                    // getNews();
-                                  });
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("Да"))
-                          ],
-                        );
-                      },
-                    );
-                  })
-            ],
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () => share(context),
           ),
+          // if (users[index_user].status == "admin")
+          // Row(
+          //   children: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => EditorGuides(
+                        id: widget.id.toString(),
+                        name: widget.name,
+                        desc: widget.desc,
+                      )));
+            },
+          ),
+          IconButton(
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              onPressed: () {
+                bool isChecked = false;
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        "Подтвердить?",
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .backgroundColor),
+                      ),
+                      content: Text(
+                          "Вы хотите удалить этот гайд навсегда?\nid: ${widget.id}",
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .backgroundColor)),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Нет")),
+                        TextButton(
+                            onPressed: () async {
+                              setState(() {
+                                deleteGuide(widget.id.toString());
+                                if (widget.url[0] != null) {
+                                  for (int i = 0; i < widget.url.length; i++) {
+                                    try {
+                                      FirebaseStorage.instance
+                                          .refFromURL(widget.url[i]!)
+                                          .delete();
+                                    } catch (e) {
+                                      print("exp: $e");
+                                    }
+                                  }
+                                }
+                              });
+
+                              // getNews();
+                              await Future<void>.delayed(
+                                  const Duration(seconds: 3), () {
+                                // getNews();
+                              });
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Да"))
+                      ],
+                    );
+                  },
+                );
+              })
         ],
       ),
+      //   ],
+      // ),
       body:
-          // SingleChildScrollView(
-          //   child:
+          SingleChildScrollView(
+            child:
           Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -203,7 +228,12 @@ class _detalGuidePageState extends State<detalGuidePage> {
                                       MaterialPageRoute(
                                           builder: (context) => showImage(
                                               imageURL: widget.url[index]!))),
-                                  child: widget.url[index] != null && (widget.url[index]!.contains('png') || widget.url[index]!.contains('jpg') || widget.url[index]!.contains('images'))
+                                  child: widget.url[index] != null &&
+                                          (widget.url[index]!.contains('png') ||
+                                              widget.url[index]!
+                                                  .contains('jpg') ||
+                                              widget.url[index]!
+                                                  .contains('images'))
                                       ? CachedNetworkImage(
                                           imageUrl: widget.url[index]!,
                                           // height: 250,
@@ -270,7 +300,7 @@ class _detalGuidePageState extends State<detalGuidePage> {
           ],
         ),
       ),
-      // ),
+      ),
     );
   }
 }

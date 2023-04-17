@@ -20,6 +20,10 @@ Future main() async {
   // runApp(AuthPage());
 }
 
+int _currentIndex = 0;
+ScrollController scrollController = ScrollController();
+bool clicked = false;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   static final ValueNotifier<ThemeMode> themeNotifier =
@@ -40,7 +44,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-List _pages = [
+List<Widget> _pages = [
   const NewsPage(),
   const GuidePage(),
   const AnalysisPage(),
@@ -56,12 +60,34 @@ class ButtomBar extends StatefulWidget {
 }
 
 class _ButtomBarState extends State<ButtomBar> {
-  int _currentIndex = 0;
+  PageController _pageController = PageController();
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    clicked = false;
+  }
+
+  void _onItemTapped(int selectedIndex) {
+    _pageController.jumpToPage(selectedIndex);
+    if (clicked) {
+      scrollController.animateTo(0,
+          duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+    }else{
+      clicked = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: _pages.elementAt(_currentIndex),
+      body: PageView(
+        controller: _pageController,
+        children: _pages,
+        onPageChanged: _onPageChanged,
+        physics: const NeverScrollableScrollPhysics(),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         // backgroundColor: appBarColor,
         selectedItemColor: Colors.blue,
@@ -71,15 +97,15 @@ class _ButtomBarState extends State<ButtomBar> {
         // unselectedItemColor: Theme.of(context).appBarTheme.foregroundColor,
         type: BottomNavigationBarType.fixed,
 
-        items: [
+        items: const [
           BottomNavigationBarItem(
-              activeIcon: const Icon(Icons.home_rounded),
+              activeIcon: Icon(Icons.home_rounded),
               icon: Icon(
                 Icons.home_outlined,
               ),
               label: "Главная"),
           BottomNavigationBarItem(
-              activeIcon: const Icon(Icons.quiz_rounded),
+              activeIcon: Icon(Icons.quiz_rounded),
               icon: Icon(
                 Icons.quiz_outlined,
               ),
@@ -91,42 +117,44 @@ class _ButtomBarState extends State<ButtomBar> {
               ),
               label: "Статистика"),
           BottomNavigationBarItem(
-              activeIcon: const Icon(Icons.message_rounded),
+              activeIcon: Icon(Icons.message_rounded),
               icon: Icon(
                 Icons.message_outlined,
               ),
               label: "Форумы"),
           BottomNavigationBarItem(
-              activeIcon: const Icon(Icons.settings),
+              activeIcon: Icon(Icons.settings),
               icon: Icon(
                 Icons.settings,
               ),
               label: "Настройки"),
         ],
         currentIndex: _currentIndex,
+        onTap: _onItemTapped,
 
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-            switch (index) {
-              case 0:
-                setState(() {
-                  // const NewsPage();
-                  // getNews();
-                  // getNewsImage();
-                });
-                // Future<void>.delayed(const Duration(seconds: 1), () {});
-                break;
-              case 1:
-                setState(() {
-                  const GuidePage();
-                  getGuide();
-                });
-                Future<void>.delayed(const Duration(seconds: 1), () {});
-                break;
-            }
-          });
-        },
+        // onTap: (int index) {
+        //   setState(() {
+        //     _currentIndex = index;
+        //     switch (index) {
+        //       case 0:
+        //         setState(() {
+        //           // const NewsPage();
+        //           // getNews();
+        //           // getNewsImage();
+        //         });
+        //         // Future<void>.delayed(const Duration(seconds: 1), () {});
+        //         break;
+        //       case 1:
+        //         setState(() {
+        //           const GuidePage();
+        //           getGuide();
+        //         });
+        //         Future<void>.delayed(const Duration(seconds: 1), () {});
+        //         break;
+        //     }
+        // }
+        // );
+        // },
       ),
     );
   }

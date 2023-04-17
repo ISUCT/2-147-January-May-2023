@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: any
+  path_provider: ^2.0.14
   icons_plus: any
   image_picker: any
   intl: ^0.18.0
@@ -29,6 +30,7 @@ dependencies:
   cached_video_player: ^2.0.4
   video_thumbnail: ^0.5.3
   unique_identifier: ^0.3.0
+  share_plus: ^6.3.2
   # ftpconnect: anyz
 
 dev_dependencies:
