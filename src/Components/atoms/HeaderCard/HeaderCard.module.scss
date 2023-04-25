@@ -1,0 +1,31 @@
+.CardHeader{
+    height: 50px;
+    margin-top: 20px;
+    width: 100%;
+    
+    .lable{
+        background-color: #34342C;
+        color: white;
+        border-radius: 20px 20px 0 0;
+        height: 100%;
+        padding-left: 10px;
+        display: flex;
+        align-items: center;
+        justify-self: start;
+    }
+
+    .line{
+        background-color: #A09C8B;
+        height: 10px;
+        width: 100%;
+    }
+
+    .info{
+        border-radius: 20px 20px;
+        background-color: white;
+        border-radius: 0 0 20px 20px;
+        width: 100%;
+    }
+}
+
+

@@ -1,0 +1,41 @@
+.leftTitle{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+
+    .leftInformations{
+        margin-right: 100px;
+        display: flex;
+        align-items: end;
+        justify-content: end;
+        flex-flow: column nowrap;
+    }
+    
+    .rightInformations{
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+
+        a{
+            color: black;
+            text-decoration: none
+        }
+        a:hover{
+            color: rgba(0, 128, 0, 0.255);
+        }
+    }
+}
+
+
+.divLine{
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 1px;
+    width: 90%;
+    border-top-style: solid;
+    border-top-width: 1.5px;
+    border-top-color: #0000000a;
+    background: #0000000a;
+}

@@ -7,7 +7,6 @@ import inst from '../../../Public/Img/inst.png'
 import telega from '../../../Public/Img/telega.png'
 import vk from '../../../Public/Img/vk.png'
 import ws from '../../../Public/Img/ws.png'
-import FlexContainer from "../../common/FlexContainer/FlexContainer";
 
 export let Footer = (props) =>{
     return(

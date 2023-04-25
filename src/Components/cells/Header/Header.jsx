@@ -4,7 +4,7 @@ import styles from './Header.module.scss'
 import { HeaderBar } from "../../atoms/HeaderBar";
 import { HeaderFooter } from "../../atoms/HeaderFooter/HeaderFooter";
 
-export let Header = (props) =>{
+export let Header = () =>{
     return(
         <div className={styles.Header}>
             <HeaderBar />
