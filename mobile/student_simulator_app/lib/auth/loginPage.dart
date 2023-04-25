@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../data/Users.dart';
 import '../main.dart';
@@ -12,21 +13,37 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   @override
+  void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _isObscure = true;
     var controllerLog = new TextEditingController();
     var controllerPass = new TextEditingController();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                "Вход",
-                style: TextStyle(fontSize: 40),
+              SizedBox(
+                height: size.height - 450,
+                child: Center(
+                  child: const Text(
+                    "Вход",
+                    style: TextStyle(fontSize: 40),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -98,13 +115,33 @@ class _LoginPageState extends State<LoginPage> {
                             height: 50,
                             // width: size.width,
                             child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    index_user = 0;
-                                    return runApp(const MyApp());
-                                  });
-                                },
-                                child: const Text("Войти")))
+                                onPressed: null,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context)
+                                      .appBarTheme
+                                      .backgroundColor,
+                                ),
+                                // onPressed: () async{
+                                //     await showDialog(context: context, builder: (context) => AlertDialog(
+                                //       title: Text("Ошибка"),
+                                //       content: Text("Вы не можете войти."),
+                                //       actions: [
+                                //         TextButton(onPressed: () {Navigator.of(context).pop(); Navigator.of(context).pop();}, child: Text("Ок"))
+                                //       ],
+                                //     ));
+                                //   // setState(() {
+                                //   //   index_user = 0;
+                                //   //   return runApp(const MyApp());
+                                //   // });
+                                // },
+                                child: Text(
+                                  "Войти",
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .backgroundColor),
+                                )))
                       ],
                     ),
                   ),

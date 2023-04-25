@@ -195,9 +195,11 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ),
                                   ListTile(
                                     onTap: () {
-                                      Navigator.of(context).push(EnterExitRoute(
+                                      Navigator.push(
+                                      context, 
+                                      EnterExitRoute(
                                               // exitPage: this.context.widget,
-                                              enterPage: const SendEmail())
+                                              enterPage:  const SendEmail())
                                           // MaterialPageRoute(
                                           //     builder: (context) =>
                                           //         const SendEmail())
@@ -282,7 +284,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           color: Theme.of(context).appBarTheme.backgroundColor,
                           child: ListTile(
                             onTap: () {
-                              return runApp(AuthPage());
+                              return runApp(const AuthPage());
                             },
                             // leading: const Icon(
                             //   Icons.exit_to_app,

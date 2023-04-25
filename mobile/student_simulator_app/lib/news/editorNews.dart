@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -33,7 +31,7 @@ class EditorNews extends StatefulWidget {
 class _EditorNewsState extends State<EditorNews> {
   bool isLoading = false;
 
-  late CachedVideoPlayerController _controller;
+  late VideoPlayerController _controller;
   @override
   void initState() {
     super.initState();
@@ -239,7 +237,7 @@ class _EditorNewsState extends State<EditorNews> {
                                                 child: AspectRatio(
                                                   aspectRatio: _controller
                                                       .value.aspectRatio,
-                                                  child: CachedVideoPlayer(
+                                                  child: VideoPlayer(
                                                     _controller,
                                                     // fit: BoxFit.cover,
                                                   ),
@@ -406,7 +404,7 @@ class _EditorNewsState extends State<EditorNews> {
           xFileNameV = xFile.name;
           fileNameV = xFileNameV!.split("image_picker").last;
           isVideo = true;
-          _controller = CachedVideoPlayerController.file(videoFile!)
+          _controller = VideoPlayerController.file(videoFile!)
             ..initialize().then((value) {
               setState(() {
                 // _controller.seekTo(Duration(seconds: 50));

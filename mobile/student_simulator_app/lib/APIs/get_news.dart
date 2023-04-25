@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+// получение get-запроса новостей
 import 'package:http/http.dart' as http;
 import '../news/Model/2/newsModel.dart';
 

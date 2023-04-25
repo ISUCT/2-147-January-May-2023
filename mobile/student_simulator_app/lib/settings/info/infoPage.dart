@@ -25,7 +25,7 @@ class _InfoPageState extends State<InfoPage> {
     _appName = packageInfo.appName;
     _packageName = packageInfo.packageName;
     _buildNumber = packageInfo.buildNumber;
-    _version = packageInfo.version;
+    _version = '${packageInfo.version}+${packageInfo.buildNumber}';
 
     _isloading = false;
     setState(() {});
@@ -33,6 +33,7 @@ class _InfoPageState extends State<InfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = Theme.of(context).brightness;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Информация о приложении"),
@@ -51,17 +52,19 @@ class _InfoPageState extends State<InfoPage> {
                       Container(
                         height: 300,
                         alignment: Alignment.center,
-                        child: const Icon(
-                          Icons.logo_dev,
-                          size: 150,
+                        child: Image.asset(
+                          brightness == Brightness.light
+                              ? 'assets/ChEL_minimal_vektor.png'
+                              : 'assets/ChEL_minimal_vektor_bel.png',
+                          height: 150,
                         ),
                       ),
                       Center(
                           child: Text(
                         _appName,
-                        style: const TextStyle(
+                        style:  TextStyle(
                             fontWeight: FontWeight.w700,
-                            color: Colors.blue,
+                            // color: Color.fromARGB(255, 28,49,150),
                             fontSize: 25),
                       )),
                       Center(

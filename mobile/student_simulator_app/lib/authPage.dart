@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:student_simulator/auth/signupPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:student_simulator/auth/registerPage.dart';
 import 'package:student_simulator/data/Users.dart';
 
 import 'Styles/Themes.dart';
 import 'auth/loginPage.dart';
 import 'main.dart';
 
+int? indexMode;
+Future getMode() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  indexMode = prefs.getInt('themeMode') ?? 0;
+  print("Mode = ${indexMode!}");
+}
+
 class AuthPage extends StatelessWidget {
-  AuthPage({super.key});
+  const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,12 @@ class _AuthState extends State<Auth> {
   String _appName = '';
   @override
   void initState() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     _load();
+    FocusManager.instance.primaryFocus?.unfocus();
     super.initState();
   }
 
@@ -51,93 +65,140 @@ class _AuthState extends State<Auth> {
   }
 
   @override
+  void dispose() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var brightness = Theme.of(context).brightness;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Center(
-                  child: Text(
-                    _appName,
-                    style: const TextStyle(fontSize: 30),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Flexible(
+                // child:
+                Center(
+                  child: SizedBox(
+                    height: size.height - 300,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          brightness == Brightness.light
+                              ? 'assets/ChEL_minimal_vektor.png'
+                              : 'assets/ChEL_minimal_vektor_bel.png',
+                          height: 100,
+                        ),
+                        Text(
+                          _appName,
+                          style: TextStyle(
+                              fontSize: 30,
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleMedium!
+                                  .color),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: size.width,
-                    height: 50,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12), // <-- Radius
-                        )),
-                        onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const LoginPage())),
-                        child: const Text("Вход")),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Row(
+                // ),
+                SizedBox(
+                  height: 250,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      SizedBox(
-                        width: size.width / 2 - 50,
-                        child: const Divider(
-                          height: 2,
-                          thickness: 2,
+                      const Text(
+                        "Внимание! Сейчас недоступна авторизация. Вы пока можете войти как гость. Извините за доставленные неудобства и желаю вам приятного просмотра! 😉",
+                        style: TextStyle(
+                          color: Colors.red,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-                      const Text("или"),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       SizedBox(
-                        width: size.width / 2 - 50,
-                        child: const Divider(
-                          height: 2,
-                          thickness: 2,
-                        ),
-                      )
+                        width: size.width,
+                        height: 50,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(12), // <-- Radius
+                            )),
+                            onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage())),
+                            child: const Text("Вход")),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          SizedBox(
+                            width: size.width / 2 - 50,
+                            child: const Divider(
+                              height: 2,
+                              thickness: 2,
+                            ),
+                          ),
+                          const Text("или"),
+                          SizedBox(
+                            width: size.width / 2 - 50,
+                            child: const Divider(
+                              height: 2,
+                              thickness: 2,
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        width: size.width,
+                        height: 50,
+                        child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                                side: const BorderSide(
+                                    width: 2, color: Colors.blue),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(12), // <-- Radius
+                                )),
+                            onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegisterPage())),
+                            child: const Text("Регистрация")),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              index_user = 1;
+                              return runApp(const MyApp());
+                            });
+                          },
+                          child: const Text("Войти как гость")),
                     ],
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    width: size.width,
-                    height: 50,
-                    child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                              side: const BorderSide(width: 2, color: Colors.blue),
-                            shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12), // <-- Radius
-                        )),
-                        onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const SignupPage())),
-                        child: const Text("Регистрация")),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          index_user = 1;
-                          return runApp(const MyApp());
-                        });
-                      },
-                      child: const Text("Войти как гость")),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

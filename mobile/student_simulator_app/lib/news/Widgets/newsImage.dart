@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:video_player/video_player.dart';
 // import 'package:shimmer/shimmer.dart';
 
 class NewsImage extends StatefulWidget {
@@ -31,13 +31,13 @@ class NewsImage extends StatefulWidget {
 }
 
 class _NewsImageState extends State<NewsImage> {
-  late CachedVideoPlayerController _controller;
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
     if (widget.image!.contains('mp4')) {
-      _controller = CachedVideoPlayerController.network(widget.image!)
+      _controller = VideoPlayerController.network(widget.image!)
         ..initialize().then((value) {
           setState(() {
             _controller.seekTo(const Duration(seconds: 50));
@@ -62,7 +62,7 @@ class _NewsImageState extends State<NewsImage> {
             .push(MaterialPageRoute(builder: (context) => widget.route!));
       },
       child: widget.image!.contains('mp4')
-          ? CachedVideoPlayer(_controller)
+          ? VideoPlayer(_controller)
           : CachedNetworkImage(
               cacheManager: NewsImage.customCachedImage,
               key: UniqueKey(),

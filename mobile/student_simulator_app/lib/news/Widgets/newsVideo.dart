@@ -1,8 +1,7 @@
-import 'package:cached_video_player/cached_video_player.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 class NewsVideo extends StatefulWidget {
   const NewsVideo(
@@ -23,11 +22,11 @@ class NewsVideo extends StatefulWidget {
 }
 
 class _NewsVideoState extends State<NewsVideo> {
-  late CachedVideoPlayerController _controller;
+  late VideoPlayerController _controller;
   @override
   void initState() {
     super.initState();
-    _controller = CachedVideoPlayerController.network(widget.video)
+    _controller = VideoPlayerController.network(widget.video)
       ..initialize().then((value) {
         setState(() {
           _controller.seekTo(Duration(seconds: 50));
@@ -52,7 +51,7 @@ class _NewsVideoState extends State<NewsVideo> {
               //       : _controller.play();
               // });
             },
-            child: CachedVideoPlayer(_controller),
+            child: VideoPlayer(_controller),
             // child: Stack(
             //   children: [
             // Positioned(

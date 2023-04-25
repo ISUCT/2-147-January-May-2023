@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -9,6 +7,7 @@ import 'package:student_simulator/APIs_draft/apiFGuide.dart';
 import 'package:student_simulator/APIs_draft/apiGuide.dart';
 import 'package:student_simulator/guide/Model/guideModel.dart';
 import 'package:uuid/uuid.dart';
+import 'package:video_player/video_player.dart';
 
 import '../data/textGuide.dart';
 import '../functions/showImage.dart';
@@ -31,7 +30,7 @@ class EditorGuides extends StatefulWidget {
 class _EditorGuidesState extends State<EditorGuides> {
   bool isLoading = false;
 
-  late CachedVideoPlayerController _controller;
+  late VideoPlayerController _controller;
   @override
   void initState() {
     super.initState();
@@ -237,7 +236,7 @@ class _EditorGuidesState extends State<EditorGuides> {
                                                 child: AspectRatio(
                                                   aspectRatio: _controller
                                                       .value.aspectRatio,
-                                                  child: CachedVideoPlayer(
+                                                  child: VideoPlayer(
                                                     _controller,
                                                     // fit: BoxFit.cover,
                                                   ),
@@ -402,7 +401,7 @@ class _EditorGuidesState extends State<EditorGuides> {
           xFileNameV = xFile.name;
           fileNameV = xFileNameV!.split("image_picker").last;
           isVideo = true;
-          _controller = CachedVideoPlayerController.file(videoFile!)
+          _controller = VideoPlayerController.file(videoFile!)
             ..initialize().then((value) {
               setState(() {
                 // _controller.seekTo(Duration(seconds: 50));

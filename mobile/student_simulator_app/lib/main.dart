@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_simulator/analysisPage.dart';
 import 'package:student_simulator/APIs_draft/apiGuide.dart';
 import 'package:student_simulator/APIs_draft/apiNews.dart';
@@ -14,30 +16,38 @@ import 'news/newsPage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  ErrorWidget.builder = (FlutterErrorDetails details){
+    return const Material();
+  };
+  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  runApp(const MyApp());
-  // runApp(AuthPage());
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+    indexMode = prefs.getInt('themeMode') ?? 0;
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // runApp(const MyApp());
+  runApp(const AuthPage());
+   
 }
 
-int _currentIndex = 0;
 ScrollController scrollController = ScrollController();
 bool clicked = false;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static final ValueNotifier<ThemeMode> themeNotifier =
-      ValueNotifier(ThemeMode.light);
+  // static final ValueNotifier<ThemeMode> themeNotifier =
+      // ValueNotifier(ThemeMode.light);
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return 
+    ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
-      builder: (context, child) => MaterialApp(
+      builder: (context, child) => 
+      MaterialApp(
         themeMode: Provider.of<ThemeProvider>(context).themeMode,
         theme: Themes.light,
         darkTheme: Themes.dark,
         debugShowCheckedModeBanner: false,
-        // title: 'Student Sumilator',
+        // // title: 'Student Sumilator',
         home: const ButtomBar(),
       ),
     );
@@ -60,6 +70,7 @@ class ButtomBar extends StatefulWidget {
 }
 
 class _ButtomBarState extends State<ButtomBar> {
+int _currentIndex = 0;
   PageController _pageController = PageController();
   void _onPageChanged(int index) {
     setState(() {
@@ -72,8 +83,8 @@ class _ButtomBarState extends State<ButtomBar> {
     _pageController.jumpToPage(selectedIndex);
     if (clicked) {
       scrollController.animateTo(0,
-          duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
-    }else{
+          duration: const Duration(milliseconds: 50), curve: Curves.easeInOut);
+    } else {
       clicked = true;
     }
   }

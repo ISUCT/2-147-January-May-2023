@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:video_player/video_player.dart';
 // import 'package:shimmer/shimmer.dart';
 import '../../components/time.dart';
 import '../detalNewPage.dart';
@@ -35,13 +35,13 @@ class News extends StatefulWidget {
 }
 
 class _NewsState extends State<News> {
-  late CachedVideoPlayerController _controller;
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
     if (widget.image != null && widget.image!.contains('mp4')) {
-      _controller = CachedVideoPlayerController.network(widget.image!)
+      _controller = VideoPlayerController.network(widget.image!)
         ..initialize().then((value) {
           setState(() {
             _controller.seekTo(const Duration(seconds: 50));
@@ -128,7 +128,7 @@ class _NewsState extends State<News> {
                         color: Theme.of(context).backgroundColor,
                         height: 100,
                         width: 150,
-                        child: CachedVideoPlayer(_controller)),
+                        child: VideoPlayer(_controller)),
                     Positioned(
                         bottom: 0, left: 3, child: Icon(BoxIcons.bxs_video, color: Theme.of(context).textTheme.bodySmall!.backgroundColor,))
                   ])

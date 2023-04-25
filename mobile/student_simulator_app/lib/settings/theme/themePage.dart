@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Styles/Themes.dart';
+import '../../authPage.dart';
 import '../../settings.dart';
 
-dynamic isDarked = 0;
+
+
+Future switCH(int index) async {
+  final SharedPreferences mode = await SharedPreferences.getInstance();
+  await mode.setInt('themeMode', index);
+  getMode();
+}
 
 class ThemePage extends StatelessWidget {
   const ThemePage({super.key});
@@ -13,6 +21,8 @@ class ThemePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var brightness = Theme.of(context).brightness;
     final themeChanger = Provider.of<ThemeProvider>(context);
+
+
     // _switch() async {
     //   if (brightness.name == ThemeMode.light.name) {
     //     isDarked = 2;
@@ -52,7 +62,7 @@ class ThemePage extends StatelessWidget {
                             (states) => Colors.blue),
                         focusColor: MaterialStateColor.resolveWith(
                             (states) => Colors.blue),
-                        value: ThemeMode.system,
+                        value: mode(0),
                         groupValue: themeChanger.themeMode,
                         onChanged: themeChanger.toggleTheme)),
                 const Padding(
@@ -70,7 +80,7 @@ class ThemePage extends StatelessWidget {
                             (states) => Colors.blue),
                         focusColor: MaterialStateColor.resolveWith(
                             (states) => Colors.blue),
-                        value: ThemeMode.light,
+                        value: mode(1),
                         groupValue: themeChanger.themeMode,
                         onChanged: themeChanger.toggleTheme)),
                 const Padding(
@@ -88,7 +98,7 @@ class ThemePage extends StatelessWidget {
                             (states) => Colors.blue),
                         focusColor: MaterialStateColor.resolveWith(
                             (states) => Colors.blue),
-                        value: ThemeMode.dark,
+                        value: mode(2),
                         groupValue: themeChanger.themeMode,
                         onChanged: themeChanger.toggleTheme)),
               ]),

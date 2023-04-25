@@ -3,7 +3,6 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cached_video_player/cached_video_player.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +13,7 @@ import 'package:student_simulator/functions/showImage.dart';
 import 'package:student_simulator/functions/showVideo.dart';
 import 'package:student_simulator/news/editorNews.dart';
 import 'package:http/http.dart' as http;
+import 'package:video_player/video_player.dart';
 
 import '../data/Users.dart';
 
@@ -36,13 +36,13 @@ class DetalNewPage extends StatefulWidget {
 }
 
 class _DetalNewPageState extends State<DetalNewPage> {
-  late CachedVideoPlayerController _controller;
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
     if (widget.image != null && widget.image!.contains('mp4')) {
-      _controller = CachedVideoPlayerController.network(widget.image!)
+      _controller = VideoPlayerController.network(widget.image!)
         ..initialize().then((value) {
           setState(() {
             _controller.seekTo(const Duration(seconds: 50));
@@ -60,7 +60,6 @@ class _DetalNewPageState extends State<DetalNewPage> {
   }
 
   share(BuildContext context) async {
-    // final RenderBox box = context.findRenderObject();
     final box = context.findRenderObject() as RenderBox?;
     if (widget.image != null) {
       final uri = Uri.parse(widget.image!);
@@ -70,10 +69,10 @@ class _DetalNewPageState extends State<DetalNewPage> {
       final path = '${temp.path}/image.jpg';
       File(path).writeAsBytesSync(bytes);
       Share.shareXFiles([XFile(path)],
-          text: "${widget.name}\n${widget.desc}",
+          text: "${widget.name}\n\n${widget.desc}",
           subject: "Новость №${widget.id} из игры Student's Life");
     } else {
-      Share.share("${widget.name}\n${widget.desc}",
+      Share.share("${widget.name}\n\n${widget.desc}",
           subject: "Новость №${widget.id} из игры Student's Life");
     }
     sharePositionOrigin:
@@ -225,7 +224,7 @@ class _DetalNewPageState extends State<DetalNewPage> {
                                         showVideo(videoURL: widget.image))),
                             child: AspectRatio(
                                 aspectRatio: _controller.value.aspectRatio,
-                                child: CachedVideoPlayer(_controller)),
+                                child: VideoPlayer(_controller)),
                           ),
                         )
                       : const SizedBox(),
