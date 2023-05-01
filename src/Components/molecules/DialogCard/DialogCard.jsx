@@ -1,8 +1,8 @@
 import React from "react";
 import { HeaderCard } from "../../atoms/HeaderCard";
-import styles from './Card.module.scss'
+import styles from './DialogCard.module.scss'
 
-export let Card = () =>{
+export let DialogCard = () =>{
     return(
         <div className={styles.Card}>
             <HeaderCard />
