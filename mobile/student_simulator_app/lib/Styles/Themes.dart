@@ -59,6 +59,11 @@ class Themes {
 
     // bottomAppBarTheme: BottomAppBarTheme(),
     // bottomSheetTheme: BottomSheetThemeData(backgroundColor: appBarColor),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: Colors.black87,
+      actionTextColor: Colors.white,
+      contentTextStyle: TextStyle(color: Colors.white,)
+    ),
     dividerColor: lineColorDark,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: appBarColorDark,
@@ -140,6 +145,11 @@ class Themes {
 
     // bottomAppBarTheme: BottomAppBarTheme(),
     // bottomSheetTheme: BottomSheetThemeData(backgroundColor: appBarColor),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: Colors.black87,
+      actionTextColor: Colors.white,
+      contentTextStyle: TextStyle(color: Colors.white,)
+    ),
     dividerColor: lineColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: appBarColor,

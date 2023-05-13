@@ -1,13 +1,16 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_simulator/authPage.dart';
 import 'package:student_simulator/components/slide.dart';
+import 'package:student_simulator/main.dart';
 import 'package:student_simulator/settings/help/helpPage.dart';
 import 'package:student_simulator/settings/profile/profilePage.dart';
 import 'package:student_simulator/settings/send/sendEmail.dart';
 
+import 'APIs/post_login.dart';
 import 'Styles/Themes.dart';
 import 'data/Users.dart';
 import 'settings/info/infoPage.dart';
@@ -196,10 +199,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                   ListTile(
                                     onTap: () {
                                       Navigator.push(
-                                      context, 
-                                      EnterExitRoute(
+                                          context,
+                                          EnterExitRoute(
                                               // exitPage: this.context.widget,
-                                              enterPage:  const SendEmail())
+                                              enterPage: const SendEmail())
                                           // MaterialPageRoute(
                                           //     builder: (context) =>
                                           //         const SendEmail())
@@ -284,6 +287,18 @@ class _SettingsPageState extends State<SettingsPage> {
                           color: Theme.of(context).appBarTheme.backgroundColor,
                           child: ListTile(
                             onTap: () {
+                              deleteAuth();
+                              setState(() {
+                                isLogin = false;
+                              });
+                              if (getLogin != '') {
+                                AppMetrica.reportEvent(
+                                    'Пользователь (${getLogin}) вышел из логина');
+                              } else {
+                                AppMetrica.reportEvent(
+                                    'Пользователь (гость) вышел из логина');
+                              }
+
                               return runApp(const AuthPage());
                             },
                             // leading: const Icon(
@@ -313,4 +328,10 @@ class _SettingsPageState extends State<SettingsPage> {
           );
         }));
   }
+}
+
+Future deleteAuth() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('login');
+  await prefs.remove('pass');
 }

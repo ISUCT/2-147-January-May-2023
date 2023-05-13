@@ -1,7 +1,9 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:student_simulator/APIs/post_register.dart';
 import 'package:student_simulator/Styles/Colors.dart';
+import 'package:student_simulator/functions/testConnection.dart';
 
 import '../data/Users.dart';
 import '../main.dart';
@@ -224,93 +226,114 @@ class _RegisterPageState extends State<RegisterPage> {
                               height: 50,
                               // width: size.width,
                               child: ElevatedButton(
-                                  onPressed: null,
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Theme.of(context)
                                         .appBarTheme
                                         .backgroundColor,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                   ),
-                                  // isDataRegisterLoading
-                                  //     ? null
-                                  //     : () async {
-                                  //         FocusManager.instance.primaryFocus
-                                  //             ?.unfocus();
-                                  //         controllerLog.text =
-                                  //             controllerLog.text.trim();
-                                  //         controllerPass.text =
-                                  //             controllerPass.text.trim();
-                                  //         controllerPass2.text =
-                                  //             controllerPass2.text.trim();
-                                  //         if (controllerLog.text != '' &&
-                                  //             controllerLog.text
-                                  //                 .contains('@') &&
-                                  //             controllerLog.text
-                                  //                 .contains('.')) {
-                                  //           setState(() {
-                                  //             isErrorLog = false;
-                                  //           });
-                                  //           if (controllerPass.text != '') {
-                                  //             setState(() {
-                                  //                 isErrorPass = false;
-                                  //               });
-                                  //             if (controllerPass.text ==
-                                  //                 controllerPass2.text) {
-                                  //               setState(() {
-                                  //                 isErrorPass2 = false;
-                                  //               });
-                                  //               print(
-                                  //                   "true: ${controllerLog.text} = ${controllerPass.text}");
-                                  //               // postRegister(controllerLog.text, controllerPass.text);
-                                  //               setState(() {
-                                  //                 isDataRegisterLoading =
-                                  //                     true;
-                                  //                 postRegister('test@mail.ru',
-                                  //                     'testPass');
-                                  //               });
-                                  //               await Future.delayed(
-                                  //                   const Duration(
-                                  //                       seconds: 3),
-                                  //                   () {});
-                                  //               print(postResRegister);
-                                  //               setState(() {
-                                  //                 isDataRegisterLoading =
-                                  //                     false;
-                                  //               });
-                                  //               if (isRegister) {
-                                  //                 ScaffoldMessenger.of(
-                                  //                         context)
-                                  //                     .showSnackBar(SnackBar(
-                                  //                         content: Text(
-                                  //                             postResRegister)));
-                                  //                 Navigator.of(context).pop;
-                                  //               } else {
-                                  //                 ScaffoldMessenger.of(
-                                  //                         context)
-                                  //                     .showSnackBar(SnackBar(
-                                  //                         content: Text(
-                                  //                             postResRegister)));
-                                  //               }
-                                  //             } else {
-                                  //               setState(() {
-                                  //                 isErrorPass2 = true;
-                                  //               });
-                                  //             }
-                                  //           } else {
-                                  //             setState(() {
-                                  //               isErrorPass = true;
-                                  //             });
-                                  //             print("pass false");
-                                  //           }
-                                  //         } else {
-                                  //           setState(() {
-                                  //             isErrorLog = true;
-                                  //           });
-                                  //           print("false");
-                                  //         }
-                                  //       },
-
+                                  onPressed: isDataRegisterLoading
+                                      ? null
+                                      : () async {
+                                          FocusManager.instance.primaryFocus
+                                              ?.unfocus();
+                                          controllerLog.text =
+                                              controllerLog.text.trim();
+                                          controllerPass.text =
+                                              controllerPass.text.trim();
+                                          controllerPass2.text =
+                                              controllerPass2.text.trim();
+                                          if (controllerLog.text != '' &&
+                                              controllerLog.text
+                                                  .contains('@') &&
+                                              controllerLog.text
+                                                  .contains('.')) {
+                                            setState(() {
+                                              isErrorLog = false;
+                                            });
+                                            if (controllerPass.text != '') {
+                                              setState(() {
+                                                isErrorPass = false;
+                              
+                                              });
+                                              if (controllerPass.text ==
+                                                  controllerPass2.text) {
+                                                setState(() {
+                                                  isErrorPass2 = false;
+                                                });
+                                                if (isConnected){
+                                                print(
+                                                    "true: ${controllerLog.text} = ${controllerPass.text}");
+                                                // postRegister(controllerLog.text, controllerPass.text);
+                                                setState(() {
+                                                  isDataRegisterLoading = true;
+                                                  postRegister('test@mail.ru',
+                                                      'testPass');
+                                                });
+                                                await Future.delayed(
+                                                    const Duration(seconds: 3),
+                                                    () {});
+                                                print(postResRegister);
+                                                setState(() {
+                                                  isDataRegisterLoading = false;
+                                                });
+                                                if (isRegister) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content:
+                                                        Text(postResRegister),
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    margin:
+                                                        const EdgeInsets.all(
+                                                            30.0),
+                                                  ));
+                                                  AppMetrica.reportEvent('Пользователь (${controllerLog.text}) выполнил регистрацию');
+                                                  Navigator.of(context).pop;
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content:
+                                                        Text(postResRegister),
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    margin:
+                                                        const EdgeInsets.all(
+                                                            30.0),
+                                                  ));
+                                                }}else{
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text("Нет соединения с интернетом"),
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    margin:
+                                                        EdgeInsets.all(30.0),
+                                                  ));
+                                                }
+                                              } else {
+                                                setState(() {
+                                                  isErrorPass2 = true;
+                                                });
+                                              }
+                                            } else {
+                                              setState(() {
+                                                isErrorPass = true;
+                                              });
+                                              print("pass false");
+                                            }
+                                          } else {
+                                            setState(() {
+                                              isErrorLog = true;
+                                            });
+                                            print("false");
+                                          }
+                                        },
                                   child: isDataRegisterLoading
-                                      ? CircularProgressIndicator()
+                                      ? const CircularProgressIndicator()
                                       : Text(
                                           "Зарегистрироваться",
                                           style: TextStyle(
