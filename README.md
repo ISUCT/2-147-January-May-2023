@@ -4,6 +4,7 @@
 
 - [Figma: Landing](https://www.figma.com/proto/nEZC73T0FjMnaFkC0gEBvv/Untitled?node-id=6%3A16&scaling=scale-down-width&page-id=0%3A1&starting-point-node-id=6%3A16)
 - [Mobile: Readme](./mobile/student_simulator_app/README.md)
+- [Figma: Design](https://www.figma.com/file/WzyANew3rV9y6uVjrdUnh8/Forum?node-id=0-1&t=vkHquGtXUImyZx1H-0)
 
 ## Collaborators
 
