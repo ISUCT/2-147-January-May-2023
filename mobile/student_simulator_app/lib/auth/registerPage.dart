@@ -267,11 +267,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 if (isConnected){
                                                 print(
                                                     "true: ${controllerLog.text} = ${controllerPass.text}");
-                                                // postRegister(controllerLog.text, controllerPass.text);
+                                                postRegister(controllerLog.text, controllerPass.text);
                                                 setState(() {
                                                   isDataRegisterLoading = true;
-                                                  postRegister('test@mail.ru',
-                                                      'testPass');
+                                                  // postRegister('test@mail.ru',
+                                                  //     'testPass');
                                                 });
                                                 await Future.delayed(
                                                     const Duration(seconds: 3),
