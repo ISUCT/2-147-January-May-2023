@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-import '../../main/mainPage.dart';
+import '../../news/newsPage.dart';
 
 class SendEmail extends StatefulWidget {
   const SendEmail({super.key});
@@ -130,7 +131,7 @@ class _SendEmailState extends State<SendEmail> {
                                   subject: subject,
                                   message: messageController.text);
                               countSendEmail = 1;
-                              return showDialog(
+                              showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
                                         title: const Text("Информация"),
@@ -149,23 +150,61 @@ class _SendEmailState extends State<SendEmail> {
                                         ],
                                       ));
                             } else {
+                              Navigator.of(context).pop();
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text(
                                           "Более одного письма за сегодняшний день сделать нельзя!")));
                             }
                           } else {
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        "Письмо не отправлено.\nНет подключения к интернету")));
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      title: Text(
+                                        "Письмо не отправлено",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                      content:
+                                          Text("Нет подключения к интернету"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text("Ок"))
+                                      ],
+                                    ));
+                            // ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //     const SnackBar(
+                            //         content: Text(
+                            //             "Письмо не отправлено.\nНет подключения к интернету")));
                           }
                         } else {
                           ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text(
-                                  "Письмо не отправлено.\nВы не написали письмо!")));
+                          // ScaffoldMessenger.of(context).clearSnackBars();
+                          // setState(() {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text(
+                                      "Письмо не отправлено",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    content: Text("Вы не написали письмо!"),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text("Ок"))
+                                    ],
+                                  ));
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //     const SnackBar(
+                          //         content: Text(
+                          //             "Письмо не отправлено.\nВы не написали письмо!")));
+                          // });
                         }
                       },
                       child: const Text(

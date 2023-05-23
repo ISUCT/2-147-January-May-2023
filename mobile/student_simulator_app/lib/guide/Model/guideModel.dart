@@ -2,9 +2,9 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-import 'package:student_simulator/api/apiGuide.dart';
+import 'package:student_simulator/APIs_draft/apiGuide.dart';
 
-List<GuideModel> guides = [GuideModel(id: 0, name_g: '0', description_g: '0', like_g: 0, timestamp_g: '0', url_f: [], type: [])];
+List<GuideModel> guides = [];
 Map<String, GuideModel> guideModelFromJson(String str) =>
     Map.from(json.decode(str))
         .map((k, v) => MapEntry<String, GuideModel>(k, GuideModel.fromJson(v)));
@@ -23,30 +23,33 @@ class GuideModel {
     required this.timestamp_g,
     required this.url_f,
     required this.type,
+    required this.thumbnail,
   });
 
-  int id;
-  String name_g;
-  String description_g;
-  int like_g;
-  String timestamp_g;
+  int? id;
+  String? name_g;
+  String? description_g;
+  int? like_g;
+  DateTime? timestamp_g;  
+  String? thumbnail;
   List<String?> url_f;
   List<String?> type;
 
   factory GuideModel.fromJson(Map<String, dynamic> json) => GuideModel(
-        id: json["id"]!,
-        name_g: json["name_g"]!,
-        description_g: json["description_g"]!,
-        like_g: json["like_g"]!,
-        timestamp_g: json["timestamp_g"]!,
-        url_f: List<String?>.from(json["url_f"]!),
-        type: List<String?>.from(json["type"]!)
+        id: json["id"],
+        name_g: json["name_g"],
+        description_g: json["description_g"],
+        like_g: json["like_g"],
+        timestamp_g: DateTime.tryParse(json["timestamp_g"].toString()),
+        thumbnail: json["thumbnail"],
+        url_f: List<String?>.from(json["url_f"]),
+        type: List<String?>.from(json["type"])
       );
 @override
   String toString() {
     // if(guides[guides.length-1].id != 1)
-    guides.add(GuideModel(id: id, name_g: name_g, description_g: description_g, like_g: like_g, timestamp_g: timestamp_g, url_f: url_f, type: type));
-    return "{name_g: $name_g, description_g: $description_g, like_g: $like_g, timestamp_g: $timestamp_g}";
+    guides.add(GuideModel(id: id, name_g: name_g, description_g: description_g, like_g: like_g, timestamp_g: timestamp_g, url_f: url_f, type: type, thumbnail: thumbnail));
+    return "{name_g: $name_g, description_g: $description_g, like_g: $like_g, timestamp_g: ${timestamp_g.toString()}}";
   }
   // Map<String, dynamic> toJson() => {
   //       "id": id,
